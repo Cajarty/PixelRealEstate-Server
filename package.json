@@ -1,0 +1,33 @@
+{
+  "name": "pixelrealestate-server",
+  "version": "1.0.0",
+  "description": "Intermediary server for caching state of PixelRealEstate.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cajarty/PixelRealEstate-Server.git"
+  },
+  "author": "Jaegar Sarauer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cajarty/PixelRealEstate-Server/issues"
+  },
+  "homepage": "https://github.com/Cajarty/PixelRealEstate-Server#readme",
+  "dependencies": {
+    "big-integer": "^1.6.26",
+    "bignumber.js": "^5.0.0",
+    "canvas": "^1.6.9",
+    "cors": "^2.8.4",
+    "js-base64": "^2.4.0",
+    "jsdom": "^11.5.1",
+    "jsonc": "^0.1.0",
+    "jsoncomp": "^1.6.1",
+    "lzwcompress": "^0.2.4",
+    "path": "^0.12.7",
+    "server": "^1.0.17",
+    "truffle-contract": "^3.0.1"
+  }
+}
