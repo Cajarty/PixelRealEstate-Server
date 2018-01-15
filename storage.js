@@ -3,14 +3,17 @@ const Timer = require('./timer.js');
 const Functions = require('./functions.js');
 const Cache = require('./cache.js');
 var compress = require('jsoncomp');
+var PNG = require('pngjs').PNG;
+const Response = require('./responses.js');
+const slice = require('array-slice');
 
 class Storage {
     constructor() {
         //stored in [0...999] rows and holds arrays of length of 4000 of all pixels in that row.
         this.pixelData = {};
 
-        //stored in [0..999] rows and holds arrays of length 500 of all pixels, in hex string format.
-        this.pixelDataHex = {};
+        //timer id for auto image cacheing
+        this.cacheImageTimer = null;
 
         //ranges from 0 to 10,000
         this.loadValue = 0;
@@ -26,39 +29,50 @@ class Storage {
 
     loadCanvas() {
         console.info('Loading real estate pixels...');
-        Cache.UncacheFile(Cache.PATHS.IMAGE_STORAGE, (err, data) => {
+        Cache.UncacheImage(Cache.PATHS.PNG_STORAGE, (err, data) => {
             if (data != null) {
-                this.pixelDataHex = data;
+                this.png = data;
+                for (let y = 0; y < 1000; y++) {
+                    this.pixelData[y] = slice(data.data, y * 4000, (y + 1) * 4000);
+                }
                 this.loadingComplete = true;
                 console.info('Requesting updates...');
             } else {
                 console.info('No cached canvas image, loading a new one from the contract.');
+                let fakeData = [0, 0, 0, 255];
+                for (let y = 0; y < 1000; y++) {
+                    this.pixelData[y] = [];
+                    for (let i = 0; i < 1000; i++)
+                        this.pixelData[y].push(fakeData);
+                }
             }
-            this.loadCanvasChunk(0, 0);
+            this.loadCanvasChunk(0);
         });
     }
 
-    loadCanvasChunk(x, row) {
-        for (let y = row; y < row + 100; y++) {
-            ctrWrp.instance.getPropertyColorsOfRow(x, y, this.insertPixelRow);
+    loadCanvasChunk(x) {
+        for (let y = 0; y < 100; y++) {
+            ctrWrp.instance.getPropertyColors(x, y, this.insertPixelRow);
         }
     }
 
-    insertPixelRow(x, row, data) {
-        if (this.pixelData[row] == null)
-            this.pixelData[row] = [];
-        for (let i = 0; i < data.length; i++)
-            this.pixelData[row].push(data[i]);
+    insertPixelRow(x, y, data) {
+        for (let i = 0; i < Object.keys(data).length; i++) {
+            if (this.pixelData[y * 10 + i] == null)
+                this.pixelData[y * 10 + i] = [];
+            for (let c = 0; c < data[i].length; c++)
+                this.pixelData[y * 10 + i][x * 40 + c] = data[i][c];
+        }
         this.loadValue += 1;
-        if (this.loadValue % 100 == (x + 10) * 10 % 100 && this.loadValue < 10000) {
+        if (this.loadValue == (x + 1) * 100 && this.loadValue < 10000) {
             console.info('Loading: ' + (this.loadValue / 100) + '%');
-            this.loadCanvasChunk((x + 10) % 100, Math.floor(this.loadValue / 1000) * 100);
+            this.loadCanvasChunk(++x);
         } else if (this.loadValue >= 10000) {
-            this.completePixelDataLoad(x);
+            this.completePixelDataLoad();
         }
     }
 
-    completePixelDataLoad(x) {
+    completePixelDataLoad() {
         console.info('Verifying load was successful.');
         for (let i = 0; i < 1000; i++)
             if (this.pixelData[i].length != 4000) {
@@ -69,9 +83,22 @@ class Storage {
                 this.loadCanvas();
             }
         console.info('Loading complete! Cacheing image to file for quick reload.');
-        this.pixelDataHex = Functions.ImageDataToBase64(this.pixelData);
-        Cache.CacheFile(Cache.PATHS.IMAGE_STORAGE, this.pixelDataHex);
+        Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData);
+        this.setupCacheLoop();
         this.loadingComplete = true;
+    }
+
+    setupCacheLoop() {
+        console.info("Now cacheing image.");
+        this.cacheImageTimer = setInterval(() => {
+            Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData);
+            console.info("Image Cached! " + (new Date()).toString());
+        }, 60000);
+    }
+
+    stopCacheLoop() {
+        clearInterval(this.cacheImageTimer);
+        console.info("No longer cacheing image!");
     }
 
     getImageData() {
@@ -88,6 +115,29 @@ class Storage {
             }
         }
         return array;
+    }
+
+    buildImage(data) {
+        new PNG({
+            filterType: 4,
+            width: 1000,
+            height: 1000,
+        }).on('parsed', function() {
+            for (let i = 0; i < Object.keys(data).length; i++) {
+                for (let j = 0; j < data[i].length; j++) {
+                    this.data[i * data[i].length + j] = data[i][j];
+                }
+            }
+            this.png = this.pack();
+            return this.png;
+        });
+    }
+
+    getImage() {
+        if (this.loadingComplete)
+            return this.png;
+        else
+            return Response.IMAGE_NOT_LOADED(this.loadValue / 100);
     }
 }
 

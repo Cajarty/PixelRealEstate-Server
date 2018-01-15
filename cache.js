@@ -1,8 +1,9 @@
 var fs = require('fs');
 var compress = require('lzwcompress');
+var PNG = require('pngjs').PNG;
 
 const PATHS = {
-    IMAGE_STORAGE: './cache/image.txt',
+    PNG_STORAGE: './cache/image.png',
 }
 
 const CacheFile = (path, data) => {
@@ -22,6 +23,36 @@ const UncacheFile = (path, callback) => {
     });
 };
 
+const CacheImage = (path, data) => {
+    let img = new PNG({
+        filterType: 4,
+        width: Object.keys(data).length,
+        height: data[0].length / 4,
+    });
+    for (let i = 0; i < Object.keys(data).length; i++) {
+        for (let j = 0; j < data[i].length; j++) {
+            img.data[i * data[i].length + j] = data[i][j];
+        }
+    }
+    img.pack().pipe(fs.createWriteStream(path));
+}
+
+const UncacheImage = (path, callback) => {
+    fs.createReadStream(path)
+        .on('error', (err) => {
+            return callback(err, null);
+        })
+        .pipe(new PNG({
+            filterType: 4
+        }))
+        .on('parsed', function() {
+            let err = null; //implement errors for this
+            return callback(err, this);
+        });
+}
+
 module.exports.PATHS = PATHS;
 module.exports.CacheFile = CacheFile;
 module.exports.UncacheFile = UncacheFile;
+module.exports.CacheImage = CacheImage;
+module.exports.UncacheImage = UncacheImage;

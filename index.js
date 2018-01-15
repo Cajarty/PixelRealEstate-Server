@@ -26,6 +26,12 @@ server(options, cors, [
     get('/getCanvas', (ctx) => {
         return Storage.instance.getImageData();
     }),
+    get('/getImage.png', (ctx) => {
+        return Storage.instance.getImage();
+    }),
+    get('/getPixelData', (ctx) => {
+        return Storage.instance.pixelData;
+    }),
     /*post('/nice', (ctx) => {
         console.log(ctx.data);
         return ctx.data;

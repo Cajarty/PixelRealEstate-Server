@@ -37,19 +37,20 @@ const Base64ToImageData = ( /*obj[0..999][0..500]*/ data) => {
 }
 
 const ContractDataToRGBAArray = ( /*uint256[10]*/ contractDataArray) => {
-    let result = [];
+    let result = {};
     let contractDataArraySize = 10;
     let pixelsPerBigInt = 10;
 
     for (let i = contractDataArraySize - 1; i >= 0; i--) {
         let uint256 = bigInt(contractDataArray[i].toString(10), 10); //Big ass number
+        result[i] = [];
         for (let j = 0; j < pixelsPerBigInt; j++) {
-            result.unshift(255);
-            result.unshift(uint256.and(255).toJSNumber());
+            result[i].unshift(255);
+            result[i].unshift(uint256.and(255).toJSNumber());
             uint256 = uint256.shiftRight(8);
-            result.unshift(uint256.and(255).toJSNumber());
+            result[i].unshift(uint256.and(255).toJSNumber());
             uint256 = uint256.shiftRight(8);
-            result.unshift(uint256.and(255).toJSNumber());
+            result[i].unshift(uint256.and(255).toJSNumber());
             uint256 = uint256.shiftRight(8);
         }
     }

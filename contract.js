@@ -5,6 +5,8 @@ const VREPath = require(path.join(__dirname, 'build/contracts/VirtualRealEstate.
 const Functions = require('./functions.js');
 const Timer = require('./timer.js');
 
+const PROPERTIES_WIDTH = 100;
+
 class Contract {
     constructor() {
         this.listeners = {};
@@ -23,13 +25,13 @@ class Contract {
     }
 
     toID(x, y) {
-        return y * Const.PROPERTIES_WIDTH + x;
+        return y * PROPERTIES_WIDTH + x;
     }
 
     fromID(id) {
         let obj = { x: 0, y: 0 };
-        obj.x = id % Const.PROPERTIES_WIDTH;
-        obj.y = Math.floor(id / 1000);
+        obj.x = id % PROPERTIES_WIDTH;
+        obj.y = Math.floor(id / 100);
         return obj;
     }
 
