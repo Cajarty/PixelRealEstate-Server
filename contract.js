@@ -7,10 +7,39 @@ const Timer = require('./timer.js');
 
 const PROPERTIES_WIDTH = 100;
 
+const EVENTS = {
+    PropertyColorUpdate: 'PropertyColorUpdate', //(uint24 indexed property, uint256[10] colors, uint256 lastUpdate, address lastUpdaterPayee);
+    PropertyColorUpdatePixel: 'PropertyColorUpdatePixel', //(uint24 indexed property, uint8 row, uint24 rgb);
+
+    SetUserHoverText: 'SetUserHoverText', //(address indexed user, bytes32[2] newHoverText);
+    SetUserSetLink: 'SetUserSetLink', //(address indexed user, bytes32[2] newLink);
+
+    PropertyBought: 'PropertyBought', //(uint24 indexed property,  address newOwner);
+    PropertySetForSale: 'PropertySetForSale', //(uint24 indexed property, uint256 forSalePrice);
+    DelistProperty: 'DelistProperty', //(uint24 indexed property);
+
+    ListTradeOffer: 'ListTradeOffer', //(address indexed offerOwner, uint256 eth, uint256 pxl, bool isBuyingPxl);
+    AcceptTradeOffer: 'AcceptTradeOffer', //(address indexed accepter, address indexed offerOwner);
+    CancelTradeOffer: 'CancelTradeOffer', //(address indexed offerOwner);
+
+    SetPropertyPublic: 'SetPropertyPublic', //(uint24 indexed property);
+    SetPropertyPrivate: 'SetPropertyPrivate', //(uint24 indexed property, uint32 numHoursPrivate);
+
+    //token events    
+    Transfer: 'Transfer', //(address indexed _from, address indexed _to, uint256 _value);
+    Approval: 'Approval', //(address indexed _owner, address indexed _spender, uint256 _value);
+};
+
 class Contract {
     constructor() {
-        this.listeners = {};
         this.VRE = null; //contract reference
+
+        this.events = {
+            event: null,
+        }
+        Object.keys(EVENTS).map((index) => {
+            this.events[index] = {};
+        });
 
         this.setup();
     }
@@ -22,6 +51,22 @@ class Contract {
         // Read JSON and attach RPC connection (Provider)
         this.VRE = contract(VREPath);
         this.VRE.setProvider(VREProvider);
+        this.setupEvents();
+    }
+
+    setupEvents() {
+        this.VRE.deployed().then((instance) => {
+            this.events.event = instance.allEvents({ fromBlock: 0, toBlock: 'latest' });
+            this.events.event.watch((error, result) => {
+                if (error) {
+                    console.info(result, error);
+                } else {
+                    this.sendEvent(result.event, result);
+                }
+            });
+        }).catch((c) => {
+            console.info(c);
+        });
     }
 
     toID(x, y) {
@@ -144,11 +189,11 @@ class Contract {
         });
     }
 
-    getPropertyData(x, y) {
+    getPropertyData(x, y, callback) {
         //returns address, price, renter, rent length, rentedUntil, rentPrice
         this.VRE.deployed().then((i) => {
-            return i.getPropertyData.call(this.toID(x, y)).then((r) => {
-                return r;
+            i.getPropertyData.call(this.toID(x, y)).then((r) => {
+                callback(x, y, r);
             });
         }).catch((e) => {
             console.log(e);
@@ -200,22 +245,23 @@ class Contract {
     }
 
     /*
-    Subscriber functions for function call returns on the contract so the
-    ui can update when it sees a change.
+    Subscriber functions for function call returns from events fired on the 
+    contract.
     */
-    listenForResults(key, callback) {
-        this.listeners[key] = callback;
+    listenForEvent(event, key, callback) {
+        this.events[event][key] = callback;
     }
 
-    stopListeningForResults(key) {
-        delete this.listeners[key];
+    stopListeningForEvent(event, key) {
+        delete this.events[event][key];
     }
 
-    sendResults(result, message) {
-        Object.keys(this.listeners).map((i) => {
-            this.listeners[i](result, message);
+    sendEvent(event, result) {
+        Object.keys(this.events[event]).map((i) => {
+            this.events[event][i](result);
         });
     }
 }
 
 module.exports.instance = new Contract();
+module.exports.EVENTS = EVENTS;

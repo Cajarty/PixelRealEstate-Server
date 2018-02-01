@@ -91,6 +91,10 @@ const BinaryToRGB = (value) => {
     return obj;
 }
 
+const BigNumberToNumber = (big) => {
+    return big.toNumber();
+}
+
 
 module.exports.ImageDataToBase64 = ImageDataToBase64;
 module.exports.Base64ToImageData = Base64ToImageData;
@@ -99,4 +103,6 @@ module.exports.ContractDataToRGBAArray = ContractDataToRGBAArray;
 module.exports.RGBArrayToContractData = RGBArrayToContractData;
 
 module.exports.RGBToBinary = RGBToBinary;
-module.exports.BinaryToRGB = BinaryToRGB
+module.exports.BinaryToRGB = BinaryToRGB;
+
+module.exports.BigNumberToNumber = BigNumberToNumber;

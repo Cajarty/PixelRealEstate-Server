@@ -32,6 +32,9 @@ server(options, cors, [
     get('/getPixelData', (ctx) => {
         return Storage.instance.pixelData;
     }),
+    get('/getPropertyData', (ctx) => {
+        return Storage.instance.getPropertyData();
+    }),
     /*post('/nice', (ctx) => {
         console.log(ctx.data);
         return ctx.data;
