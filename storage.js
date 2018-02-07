@@ -34,6 +34,65 @@ class Storage {
         this.pixelsForRent = {};
         this.insertPixelRow = this.insertPixelRow.bind(this);
         this.storePropertyData = this.storePropertyData.bind(this);
+
+        //enables pre-release advertising bot, must be set to true to use the setupBot function
+        this.useBot = true;
+        this.botTimer = null;
+
+        this.images = {
+            test: { 0: [255, 0, 0, 255], 1: [255, 0, 0, 255] },
+            test2: { 0: [0, 255, 0, 255], 1: [0, 255, 0, 255] },
+            test3: { 0: [0, 0, 255, 255, 0, 0, 255, 255] },
+            FOR_SALE_IMAGE: {
+                0: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 50, 52, 0, 255, 13, 13, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                1: [0, 0, 0, 255, 0, 0, 0, 255, 4, 4, 0, 255, 122, 126, 0, 255, 196, 202, 0, 255, 173, 179, 0, 255, 68, 70, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                2: [0, 0, 0, 255, 0, 0, 0, 255, 82, 84, 0, 255, 124, 128, 0, 255, 103, 106, 0, 255, 38, 40, 0, 255, 170, 175, 0, 255, 5, 5, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                3: [0, 0, 0, 255, 0, 0, 0, 255, 78, 80, 0, 255, 146, 150, 0, 255, 111, 114, 0, 255, 32, 33, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                4: [0, 0, 0, 255, 0, 0, 0, 255, 1, 1, 0, 255, 98, 101, 0, 255, 201, 207, 0, 255, 166, 171, 0, 255, 64, 66, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                5: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 102, 105, 0, 255, 58, 59, 0, 255, 176, 181, 0, 255, 38, 40, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                6: [0, 0, 0, 255, 0, 0, 0, 255, 103, 106, 0, 255, 64, 66, 0, 255, 102, 105, 0, 255, 32, 33, 0, 255, 143, 147, 0, 255, 60, 61, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                7: [0, 0, 0, 255, 0, 0, 0, 255, 21, 22, 0, 255, 176, 181, 0, 255, 184, 190, 0, 255, 168, 173, 0, 255, 163, 168, 0, 255, 5, 5, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                8: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 109, 112, 0, 255, 52, 54, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+                9: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
+            }
+        };
+    }
+
+
+    setupBot() {
+        if (!this.useBot) {
+            console.info('BOT: Disabled. Not starting.');
+            return;
+        }
+
+        console.info('BOT: Starting...');
+
+        this.botTimer = setInterval(() => {
+            let imageIndex = Math.floor(Object.keys(this.images).length * Math.random()) % Object.keys(this.images).length;
+            let imageKeys = Object.keys(this.images);
+            let imageName = imageKeys[imageIndex];
+            let image = this.images[imageKeys[imageIndex]];
+            let x = Math.floor(Math.random() * (1000 - Object.keys(image)[0].length));
+            let y = Math.floor(Math.random() * (1000 - Object.keys(image).length));
+            console.info('BOT: Placing image:\t[' + imageName + '] at:\tx: [' + x + '] y: [' + y + ']');
+            this.insertImage(x, y, image);
+        }, 1000);
+    }
+
+    disableBot() {
+        if (this.botTimer == null)
+            return;
+        console.info('BOT: Stopping...');
+        clearInterval(this.botTimer);
+    }
+
+    insertImage(x, y, data) {
+        for (let i = 0; i < Object.keys(data).length; i++) {
+            if (this.pixelData[y + i] == null)
+                this.pixelData[y + i] = [];
+            for (let c = 0; c < data[i].length; c++)
+                this.pixelData[y + i][x * 4 + c] = data[i][c];
+        }
     }
 
     loadCanvas() {
@@ -68,12 +127,7 @@ class Storage {
     }
 
     insertPixelRow(x, y, data) {
-        for (let i = 0; i < Object.keys(data).length; i++) {
-            if (this.pixelData[y * 10 + i] == null)
-                this.pixelData[y * 10 + i] = [];
-            for (let c = 0; c < data[i].length; c++)
-                this.pixelData[y * 10 + i][x * 40 + c] = data[i][c];
-        }
+        this.insertImage(x * 10, y * 10, data);
         this.loadValue += 1;
         if (this.loadValue == (x + 1) * 100 && this.loadValue < 10000) {
             console.info('Loading canvas data: ' + (this.loadValue / 100) + '%');
@@ -114,15 +168,16 @@ class Storage {
     Used for organizing storage from the loadData call for property data.
     */
     storePropertyData(x, y, data) {
-        //note that data1 returns the ethereum price
-        let price = Functions.BigNumberToNumber(data[2]);
+        let ethp = Functions.BigNumberToNumber(data[1]);
+        let ppcp = Functions.BigNumberToNumber(data[2]);
         let obj = {
             x: x,
             y: y,
             owner: data[0],
-            isForSale: data[0] == owner0 || price != 0,
-            ppcPrice: price,
-            lastUpdate: data[3],
+            isForSale: ppcp != 0,
+            ETHPrice: ethp,
+            PPCPrice: ppcp,
+            lastUpdate: Functions.BigNumberToNumber(data[3]),
             isInPrivate: data[4],
         };
         if (this.propertyData[x] == null)
@@ -134,6 +189,7 @@ class Storage {
             this.loadData(y + 1);
             if (this.propertyLoadValue >= 10000) {
                 console.info('Loading property data complete!');
+                this.setupBot();
                 this.listenForEvents();
                 return;
             }
