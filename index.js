@@ -9,7 +9,7 @@ const { get } = server.router;
 const { render, json } = server.reply;
 
 const cors = [
-    ctx => server.reply.header("Access-Control-Allow-Origin", "*"), //http://canvas.pixelproperty.io
+    ctx => server.reply.header("Access-Control-Allow-Origin", "http://pixelproperty.io"), //http://canvas.pixelproperty.io
     ctx => server.reply.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
     ctx => server.reply.header('Access-Control-Allow-Methods', '')
 ];

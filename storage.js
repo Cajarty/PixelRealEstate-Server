@@ -6,6 +6,7 @@ var compress = require('jsoncomp');
 var PNG = require('pngjs').PNG;
 const Response = require('./responses.js');
 const slice = require('array-slice');
+const { BotImages, LoadBotImages } = require('./botData.js');
 
 const owner0 = '0x0000000000000000000000000000000000000000';
 
@@ -35,27 +36,16 @@ class Storage {
         this.insertPixelRow = this.insertPixelRow.bind(this);
         this.storePropertyData = this.storePropertyData.bind(this);
 
+        //debug
+        //disables the load 1-100% of gathering pixel data for all properties
+        this.disableCanvasReload = false;
+
         //enables pre-release advertising bot, must be set to true to use the setupBot function
+        //bot images are imported from botData.js
         this.useBot = true;
+        this.pauseBot = false;
         this.botTimer = null;
 
-        this.images = {
-            test: { 0: [255, 0, 0, 255], 1: [255, 0, 0, 255] },
-            test2: { 0: [0, 255, 0, 255], 1: [0, 255, 0, 255] },
-            test3: { 0: [0, 0, 255, 255, 0, 0, 255, 255] },
-            FOR_SALE_IMAGE: {
-                0: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 50, 52, 0, 255, 13, 13, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                1: [0, 0, 0, 255, 0, 0, 0, 255, 4, 4, 0, 255, 122, 126, 0, 255, 196, 202, 0, 255, 173, 179, 0, 255, 68, 70, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                2: [0, 0, 0, 255, 0, 0, 0, 255, 82, 84, 0, 255, 124, 128, 0, 255, 103, 106, 0, 255, 38, 40, 0, 255, 170, 175, 0, 255, 5, 5, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                3: [0, 0, 0, 255, 0, 0, 0, 255, 78, 80, 0, 255, 146, 150, 0, 255, 111, 114, 0, 255, 32, 33, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                4: [0, 0, 0, 255, 0, 0, 0, 255, 1, 1, 0, 255, 98, 101, 0, 255, 201, 207, 0, 255, 166, 171, 0, 255, 64, 66, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                5: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 102, 105, 0, 255, 58, 59, 0, 255, 176, 181, 0, 255, 38, 40, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                6: [0, 0, 0, 255, 0, 0, 0, 255, 103, 106, 0, 255, 64, 66, 0, 255, 102, 105, 0, 255, 32, 33, 0, 255, 143, 147, 0, 255, 60, 61, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                7: [0, 0, 0, 255, 0, 0, 0, 255, 21, 22, 0, 255, 176, 181, 0, 255, 184, 190, 0, 255, 168, 173, 0, 255, 163, 168, 0, 255, 5, 5, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                8: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 109, 112, 0, 255, 52, 54, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-                9: [0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255, 0, 0, 0, 255],
-            }
-        };
     }
 
 
@@ -68,15 +58,17 @@ class Storage {
         console.info('BOT: Starting...');
 
         this.botTimer = setInterval(() => {
-            let imageIndex = Math.floor(Object.keys(this.images).length * Math.random()) % Object.keys(this.images).length;
-            let imageKeys = Object.keys(this.images);
+            if (this.pauseBot)
+                return;
+            let imageIndex = Math.floor(Object.keys(BotImages).length * Math.random()) % Object.keys(BotImages).length;
+            let imageKeys = Object.keys(BotImages);
             let imageName = imageKeys[imageIndex];
-            let image = this.images[imageKeys[imageIndex]];
-            let x = Math.floor(Math.random() * (1000 - Object.keys(image)[0].length));
-            let y = Math.floor(Math.random() * (1000 - Object.keys(image).length));
+            let image = BotImages[imageKeys[imageIndex]];
+            let x = Math.round(Math.random() * (1000 - (image[Object.keys(image)[0]].length / 4)) / 10) * 10;
+            let y = Math.round(Math.random() * (1000 - Object.keys(image).length) / 10) * 10;
             console.info('BOT: Placing image:\t[' + imageName + '] at:\tx: [' + x + '] y: [' + y + ']');
             this.insertImage(x, y, image);
-        }, 1000);
+        }, 2000);
     }
 
     disableBot() {
@@ -106,7 +98,6 @@ class Storage {
                     this.pixelData[y] = slice(data.data, y * 4000, (y + 1) * 4000);
                 }
                 this.loadingComplete = true;
-                console.info('Requesting updates...');
             } else {
                 console.info('No cached canvas image, loading a new one from the contract.');
                 let fakeData = [0, 0, 0, 255];
@@ -116,7 +107,11 @@ class Storage {
                         this.pixelData[y].push(fakeData);
                 }
             }
-            this.loadCanvasChunk(0);
+            console.info('Requesting updates...');
+            if (!this.disableCanvasReload)
+                this.loadCanvasChunk(0);
+            else
+                this.loadData();
         });
     }
 
@@ -148,7 +143,7 @@ class Storage {
                 this.loadCanvas();
             }
         console.info('Loading complete! Cacheing image to file for quick reload.');
-        Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData);
+        Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
         this.setupCacheLoop();
         this.loadData();
         this.loadingComplete = true;
@@ -197,10 +192,15 @@ class Storage {
     }
 
     setupCacheLoop() {
-        console.info("Now cacheing image.");
+        return;
         this.cacheImageTimer = setInterval(() => {
-            Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData);
-            console.info("Image Cached! " + (new Date()).toString());
+            console.info("Now cacheing image.");
+            this.pauseBot = true;
+            let temp = this.pixelData;
+            Cache.CacheImage(Cache.PATHS.PNG_STORAGE, temp, (result) => {
+                this.pauseBot = false;
+                console.info("Image Cached! " + (new Date()).toString());
+            });
         }, 60000);
     }
 

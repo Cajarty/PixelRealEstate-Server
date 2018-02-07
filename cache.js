@@ -4,6 +4,7 @@ var PNG = require('pngjs').PNG;
 
 const PATHS = {
     PNG_STORAGE: './cache/image.png',
+    BOT_IMAGE_LOC: './BotImages/',
 }
 
 const CacheFile = (path, data) => {
@@ -23,7 +24,7 @@ const UncacheFile = (path, callback) => {
     });
 };
 
-const CacheImage = (path, data) => {
+const CacheImage = (path, data, callback) => {
     let img = new PNG({
         filterType: 4,
         width: Object.keys(data).length,
@@ -34,7 +35,9 @@ const CacheImage = (path, data) => {
             img.data[i * data[i].length + j] = data[i][j];
         }
     }
-    img.pack().pipe(fs.createWriteStream(path));
+    img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
+        callback(true);
+    });
 }
 
 const UncacheImage = (path, callback) => {
