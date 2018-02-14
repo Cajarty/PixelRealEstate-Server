@@ -37,8 +37,8 @@ class Storage {
         this.storePropertyData = this.storePropertyData.bind(this);
 
         //debug
-        //disables the load 1-100% of gathering pixel data for all properties
-        this.disableCanvasReload = false;
+        //disables the load 1-100% of gathering pixel data for all properties, used for testing only
+        this.disableCanvasReload = true;
 
         //enables pre-release advertising bot, must be set to true to use the setupBot function
         //bot images are imported from botData.js
@@ -60,15 +60,22 @@ class Storage {
         this.botTimer = setInterval(() => {
             if (this.pauseBot)
                 return;
-            let imageIndex = Math.floor(Object.keys(BotImages).length * Math.random()) % Object.keys(BotImages).length;
-            let imageKeys = Object.keys(BotImages);
-            let imageName = imageKeys[imageIndex];
-            let image = BotImages[imageKeys[imageIndex]];
-            let x = Math.round(Math.random() * (1000 - (image[Object.keys(image)[0]].length / 4)) / 10) * 10;
-            let y = Math.round(Math.random() * (1000 - Object.keys(image).length) / 10) * 10;
-            console.info('BOT: Placing image:\t[' + imageName + '] at:\tx: [' + x + '] y: [' + y + ']');
-            this.insertImage(x, y, image);
-        }, 2000);
+            let xPos = 0;
+            let yPos = Math.round(Math.random() * 19) * 50;
+            while (xPos <= 999) {
+                let imageIndex, imageKeys, imageName, image;
+                do {
+                    imageIndex = Math.floor(Object.keys(BotImages).length * Math.random()) % Object.keys(BotImages).length;
+                    imageKeys = Object.keys(BotImages);
+                    imageName = imageKeys[imageIndex];
+                    image = BotImages[imageKeys[imageIndex]];
+                } while (image.width + xPos > 1000);
+                console.info(image.width);
+                console.info('BOT: Placing image:\t[' + imageName + '] at:\tx: [' + xPos + '] y: [' + yPos + ']');
+                this.insertImage(xPos, yPos, image.image);
+                xPos += image.width;
+            }
+        }, 5000);
     }
 
     disableBot() {

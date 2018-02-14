@@ -1,35 +1,16 @@
 const Cache = require('./cache.js');
 
 const BotImages = {
-    x10x10: null,
-    nem50x25: null,
-    iota50x25: null,
-    sia50x25: null,
-    neo50x25: null,
-    neo200x100: null,
-    sia200x100: null,
-    iota200x100: null,
-    nem200x100: null,
-    eth50x50: null,
-    btc50x50: null,
-    neo50x50: null,
-    doge50x50: null,
-    ark50x50: null,
-    eos50x50: null,
-    ltc50x50: null,
-    xmr50x50: null,
-    steem50x50: null,
-    steem200x200: null,
-    xmr200x200: null,
-    ltc200x200: null,
-    eos200x200: null,
-    ark200x200: null,
-    doge200x200: null,
-    btc200x200: null,
-    eth200x200: null,
-    eth10x10: null,
-    happy10x10: null,
-    btc10x10: null,
+    eth50x50: { image: null, width: 50, height: 50 },
+    btc50x50: { image: null, width: 50, height: 50 },
+    neo50x50: { image: null, width: 50, height: 50 },
+    doge50x50: { image: null, width: 50, height: 50 },
+    ark50x50: { image: null, width: 50, height: 50 },
+    eos50x50: { image: null, width: 50, height: 50 },
+    ltc50x50: { image: null, width: 50, height: 50 },
+    xmr50x50: { image: null, width: 50, height: 50 },
+    steem50x50: { image: null, width: 50, height: 50 },
+    test200x50: { image: null, width: 200, height: 50 },
 };
 
 function LoadImages() {
@@ -47,7 +28,7 @@ function LoadImages() {
                 }
                 if (finalData == null)
                     console.info("failed loading: " + imageNames[i]);
-                BotImages[imageNames[i]] = finalData;
+                BotImages[imageNames[i]].image = finalData;
             } else {
                 console.info('Error loading bot images.');
             }
