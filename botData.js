@@ -10,7 +10,35 @@ const BotImages = {
     ltc50x50: { image: null, width: 50, height: 50 },
     xmr50x50: { image: null, width: 50, height: 50 },
     steem50x50: { image: null, width: 50, height: 50 },
-    test200x50: { image: null, width: 200, height: 50 },
+    angryBossman: { image: null, width: 100, height: 50 },
+    bulletjim_50x50: { image: null, width: 50, height: 50 },
+    castle_50x50: { image: null, width: 50, height: 50 },
+    handleFacebook200x50: { image: null, width: 200, height: 50 },
+    handleInstagram200x50: { image: null, width: 200, height: 50 },
+    handleSteem200x50: { image: null, width: 200, height: 50 },
+    handleTwitter200x50: { image: null, width: 200, height: 50 },
+    houses_50x50: { image: null, width: 50, height: 50 },
+    houses1_100x50: { image: null, width: 100, height: 50 },
+    houses2_50x50: { image: null, width: 50, height: 50 },
+    houses2_100x50: { image: null, width: 100, height: 50 },
+    iota100x50: { image: null, width: 100, height: 50 },
+    land_100x50: { image: null, width: 100, height: 50 },
+    ltc2_50x50: { image: null, width: 50, height: 50 },
+    misc2_50x50: { image: null, width: 50, height: 50 },
+    misc3_50x50: { image: null, width: 50, height: 50 },
+    misc4_100x50: { image: null, width: 100, height: 50 },
+    misc5_200x50: { image: null, width: 200, height: 50 },
+    misc50x50: { image: null, width: 50, height: 50 },
+    mountains2_50x50: { image: null, width: 50, height: 50 },
+    mountains50x50: { image: null, width: 50, height: 50 },
+    nem_neo_50x50: { image: null, width: 50, height: 50 },
+    nem100x50: { image: null, width: 100, height: 50 },
+    neo100x50: { image: null, width: 100, height: 50 },
+    origLogo1_50x50: { image: null, width: 50, height: 50 },
+    origLogo2_50x50: { image: null, width: 50, height: 50 },
+    seed_100x50: { image: null, width: 100, height: 50 },
+    sia_nem_50x50: { image: null, width: 50, height: 50 },
+    sia100x50: { image: null, width: 100, height: 50 },
 };
 
 function LoadImages() {
@@ -30,7 +58,7 @@ function LoadImages() {
                     console.info("failed loading: " + imageNames[i]);
                 BotImages[imageNames[i]].image = finalData;
             } else {
-                console.info('Error loading bot images.');
+                console.info('Error loading bot image ' + imageNames[i]);
             }
         });
     }
