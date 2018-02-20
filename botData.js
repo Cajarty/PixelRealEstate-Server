@@ -54,6 +54,10 @@ const BotImages = {
     TeddyFace_100x50: { image: null, width: 100, height: 50 },
     waves_followbtcnews_100x50: { image: null, width: 100, height: 50 },
     woodland_saicos_100x50: { image: null, width: 100, height: 50 },
+    Canada_100x50: { image: null, width: 100, height: 50 },
+    Chalkboard_100x50: { image: null, width: 100, height: 50 },
+    Mountains_100x50: { image: null, width: 100, height: 50 },
+    TreeTK_100x50: { image: null, width: 100, height: 50 },
 };
 
 function LoadImages() {
