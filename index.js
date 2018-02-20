@@ -31,6 +31,10 @@ const options = {
     },
     frameguard: {
         action: 'deny'
+    },
+    ssl: {
+        key: '.ssl/ssl.pem',
+        cert: '.ssl/ssl.cert'
     }
 };
 

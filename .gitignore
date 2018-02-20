@@ -60,4 +60,7 @@ typings/
 # Mac
 .DS_Store
 
+# ssl
+ssl/
+
 
