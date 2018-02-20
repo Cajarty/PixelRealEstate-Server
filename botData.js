@@ -59,7 +59,6 @@ const BotImages = {
 function LoadImages() {
     let imageNames = Object.keys(BotImages);
     for (let i = 0; i < imageNames.length; i++) {
-        console.info(Cache.PATHS.BOT_IMAGE_LOC + imageNames[i] + '.png');
         Cache.UncacheImage(Cache.PATHS.BOT_IMAGE_LOC + imageNames[i] + '.png', (err, imgData) => {
             if (imgData != null) {
                 let finalData = {};

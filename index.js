@@ -8,8 +8,16 @@ const Timer = require('./timer.js');
 const { get } = server.router;
 const { render, json } = server.reply;
 
+const ENV_DEV = process.argv[2] === 'dev' ? true : false;
+
+if (ENV_DEV) {
+    console.warn("----------------- CAUTION -----------------");
+    console.warn("You are running dev. DO NOT use this for production.");
+    console.warn("----------------- CAUTION -----------------");
+}
+
 const cors = [
-    ctx => server.reply.header("Access-Control-Allow-Origin", "*"), //http://canvas.pixelproperty.io            http://pixelproperty.io
+    ctx => server.reply.header("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'http://pixelproperty.io')),
     ctx => server.reply.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
     ctx => server.reply.header('Access-Control-Allow-Methods', '')
 ];
