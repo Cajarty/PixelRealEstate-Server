@@ -11,11 +11,8 @@ In Terminal 1:
 
 In Terminal 2:
 ---
-    npm install -g truffle
-    truffle unbox react-auth
-    truffle compile
     truffle migrate
-    npm run dev
+    node . dev #runs dev. Remove 'dev' to run prod.
 
 Now visit http://localhost:8080/
 
