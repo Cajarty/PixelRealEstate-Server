@@ -33,8 +33,9 @@ const options = {
         action: 'deny'
     },
     ssl: {
-        key: '.ssl/ssl.pem',
-        cert: '.ssl/ssl.cert'
+        ca: './ssl/ssl.ca',
+        key: './ssl/ssl.pem',
+        cert: './ssl/ssl.cert'
     }
 };
 
