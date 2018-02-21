@@ -17,7 +17,7 @@ if (ENV_DEV) {
 }
 
 const cors = [
-    ctx => server.reply.header("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'http://pixelproperty.io')),
+    ctx => server.reply.header("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'http://127.0.0.1/')),
     ctx => server.reply.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
     ctx => server.reply.header('Access-Control-Allow-Methods', '')
 ];
