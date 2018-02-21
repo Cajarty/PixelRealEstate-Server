@@ -34,9 +34,8 @@ const options = {
         action: 'deny'
     },
     ssl: {
-        ca: [fs.readFileSync('./ssl/ssl1.cabundle'), fs.readFileSync('./ssl/ssl2.cabundle')],
-        key: fs.readFileSync('./ssl/ssl.key'),
-        cert: fs.readFileSync('./ssl/ssl.crt')
+        key: fs.readFileSync('./ssl/key.pem'),
+        cert: fs.readFileSync('./ssl/key-cert.pem')
     }
 };
 
