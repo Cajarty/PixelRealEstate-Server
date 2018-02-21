@@ -4,6 +4,7 @@ const contract = require("truffle-contract");
 const CtrWrp = require('./contract.js');
 const Storage = require('./storage.js');
 const Timer = require('./timer.js');
+const fs = require('fs');
 
 const { get } = server.router;
 const { render, json } = server.reply;
@@ -17,7 +18,7 @@ if (ENV_DEV) {
 }
 
 const cors = [
-    ctx => server.reply.header("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'http://127.0.0.1/')),
+    ctx => server.reply.header("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'https://pixelproperty.io')),
     ctx => server.reply.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
     ctx => server.reply.header('Access-Control-Allow-Methods', '')
 ];
@@ -33,9 +34,9 @@ const options = {
         action: 'deny'
     },
     ssl: {
-        ca: './ssl/ssl.ca',
-        key: './ssl/ssl.pem',
-        cert: './ssl/ssl.cert'
+        ca: fs.readFileSync('./ssl/ssl.pem'),
+        key: fs.readFileSync('./ssl/ssl.pem'),
+        cert: fs.readFileSync('.ssl/ssl.cert')
     }
 };
 
