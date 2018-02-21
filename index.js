@@ -44,15 +44,19 @@ app.use(function(req, res, next) {
 
 app.get('/getCanvas', (req, res) => {
     res.send(Storage.instance.getImageData());
+    res.end();
 });
 app.get('/getImage.png', (req, res) => {
     res.send(Storage.instance.getImage());
+    res.end();
 });
 app.get('/getPixelData', (req, res) => {
     res.send(Storage.instance.pixelData);
+    res.end();
 });
 app.get('/getPropertyData', (req, res) => {
     res.send(Storage.instance.getPropertyData());
+    res.end();
 });
 var server2 = https.createServer(options, app).listen(6500, function() {
     console.log("server started at port ", 6500);
