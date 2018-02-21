@@ -36,7 +36,7 @@ const options = {
     ssl: {
         ca: fs.readFileSync('./ssl/ssl.pem'),
         key: fs.readFileSync('./ssl/ssl.pem'),
-        cert: fs.readFileSync('.ssl/ssl.cert')
+        cert: fs.readFileSync('./ssl/ssl.cert')
     }
 };
 
