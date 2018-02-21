@@ -34,7 +34,7 @@ const options = {
         action: 'deny'
     },
     ssl: {
-        ca: fs.readFileSync('./ssl/ssl.cabundle'),
+        ca: [fs.readFileSync('./ssl/ssl1.cabundle'), fs.readFileSync('./ssl/ssl2.cabundle')],
         key: fs.readFileSync('./ssl/ssl.key'),
         cert: fs.readFileSync('./ssl/ssl.crt')
     }
@@ -54,10 +54,6 @@ server(options, cors, [
     get('/getPropertyData', (ctx) => {
         return Storage.instance.getPropertyData();
     }),
-    /*post('/nice', (ctx) => {
-        console.log(ctx.data);
-        return ctx.data;
-    })*/
 ]);
 
 console.info("Running on port: ", options.port);
