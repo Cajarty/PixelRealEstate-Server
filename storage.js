@@ -192,6 +192,7 @@ class Storage {
             if (this.propertyLoadValue >= 10000) {
                 console.info('Loading property data complete!');
                 this.setupBot();
+                this.setupCacheLoop();
                 this.listenForEvents();
                 return;
             }
@@ -199,7 +200,8 @@ class Storage {
     }
 
     setupCacheLoop() {
-        return;
+        if (this.cacheImageTimer != null)
+            return;
         this.cacheImageTimer = setInterval(() => {
             console.info("Now cacheing image.");
             this.pauseBot = true;
