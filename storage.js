@@ -73,7 +73,7 @@ class Storage {
                 this.insertImage(xPos, yPos, image.image);
                 xPos += image.width;
             }
-        }, 5000);
+        }, 15001);
     }
 
     disableBot() {
@@ -208,7 +208,7 @@ class Storage {
                 this.pauseBot = false;
                 console.info("Image Cached! " + (new Date()).toString());
             });
-        }, 60000);
+        }, 15000);
     }
 
     stopCacheLoop() {
