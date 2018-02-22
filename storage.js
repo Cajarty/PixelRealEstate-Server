@@ -73,7 +73,7 @@ class Storage {
                 this.insertImage(xPos, yPos, image.image);
                 xPos += image.width;
             }
-        }, 15001);
+        }, 5017);
     }
 
     disableBot() {
