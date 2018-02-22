@@ -6,6 +6,7 @@ const Timer = require('./timer.js');
 const fs = require('fs');
 const cors = require('cors');
 const https = require('https');
+const helmet = require('helmet');
 const express = require('express');
 
 const ENV_DEV = process.argv[2] === 'dev' ? true : false;
@@ -25,10 +26,11 @@ const options = {
 
 var app = express();
 
+app.use(helmet());
+
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'https://pixelproperty.io'));
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.setHeader('Access-Control-Allow-Methods', '');
     next();
 });
 
