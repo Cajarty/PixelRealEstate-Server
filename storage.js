@@ -45,7 +45,6 @@ class Storage {
         this.useBot = true;
         this.pauseBot = false;
         this.botTimer = null;
-
     }
 
 
@@ -70,7 +69,6 @@ class Storage {
                     imageName = imageKeys[imageIndex];
                     image = BotImages[imageKeys[imageIndex]];
                 } while (image.width + xPos > 1000);
-                console.info(image.width);
                 console.info('BOT: Placing image:\t[' + imageName + '] at:\tx: [' + xPos + '] y: [' + yPos + ']');
                 this.insertImage(xPos, yPos, image.image);
                 xPos += image.width;
