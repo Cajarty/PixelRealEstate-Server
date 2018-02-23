@@ -65,6 +65,14 @@ const BotImages = {
     Music_100x50: { image: null, width: 100, height: 50 },
     Ocean_100x50: { image: null, width: 100, height: 50 },
     PizzaSpying_100x50: { image: null, width: 100, height: 50 },
+    Eringar_50x50: { image: null, width: 50, height: 50 },
+    Groff_50x50: { image: null, width: 50, height: 50 },
+    InAMouth_100x50: { image: null, width: 100, height: 50 },
+    Lofiodin_50x50: { image: null, width: 50, height: 50 },
+    Mixture_200x50: { image: null, width: 200, height: 50 },
+    Nikster_50x50: { image: null, width: 50, height: 50 },
+    Stiching_100x50: { image: null, width: 100, height: 50 },
+    Tentomatone_100x50: { image: null, width: 100, height: 50 },
 };
 
 function LoadImages() {
