@@ -1,13 +1,13 @@
 // Include it and extract some methods for convenience
-const server = require('server');
 const contract = require("truffle-contract");
 const CtrWrp = require('./contract.js');
 const Storage = require('./storage.js');
 const Timer = require('./timer.js');
 const fs = require('fs');
-
-const { get } = server.router;
-const { render, json } = server.reply;
+const cors = require('cors');
+const https = require('https');
+const helmet = require('helmet');
+const express = require('express');
 
 const ENV_DEV = process.argv[2] === 'dev' ? true : false;
 
@@ -17,44 +17,42 @@ if (ENV_DEV) {
     console.warn("----------------- CAUTION -----------------");
 }
 
-const cors = [
-    ctx => server.reply.header("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'https://pixelproperty.io')),
-    ctx => server.reply.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"),
-    ctx => server.reply.header('Access-Control-Allow-Methods', '')
-];
-
-
 const options = {
-    port: 6500,
-    csrf: {
-        ignoreMethods: ['PUT', 'POST', 'DELETE', 'HEAD', 'OPTIONS'],
-        value: req => req.body.csnowflakerf
-    },
-    frameguard: {
-        action: 'deny'
-    },
-    ssl: {
-        key: fs.readFileSync('./ssl/key.pem'),
-        cert: fs.readFileSync('./ssl/key-cert.pem')
-    }
+    key: fs.readFileSync('./ssl/ssl.key'),
+    cert: fs.readFileSync('./ssl/ssl.crt'),
+    requestCert: false,
+    rejectUnauthorized: false
 };
 
-// Launch server with options and a couple of routes
-server(options, cors, [
-    get('/getCanvas', (ctx) => {
-        return Storage.instance.getImageData();
-    }),
-    get('/getImage.png', (ctx) => {
-        return Storage.instance.getImage();
-    }),
-    get('/getPixelData', (ctx) => {
-        return Storage.instance.pixelData;
-    }),
-    get('/getPropertyData', (ctx) => {
-        return Storage.instance.getPropertyData();
-    }),
-]);
+var app = express();
 
-console.info("Running on port: ", options.port);
+app.use(helmet());
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'https://pixelproperty.io'));
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.get('/getCanvas', (req, res) => {
+    res.send(Storage.instance.getImageData());
+    res.end();
+});
+app.get('/getImage.png', (req, res) => {
+    res.writeHead(200, { 'Content-Type': 'image/png' });
+    let img = fs.readFileSync('./cache/image.png');
+    res.end(img, 'binary');
+});
+app.get('/getPixelData', (req, res) => {
+    res.send(Storage.instance.pixelData);
+    res.end();
+});
+app.get('/getPropertyData', (req, res) => {
+    res.send(Storage.instance.getPropertyData());
+    res.end();
+});
+var server = https.createServer(options, app).listen(6500, function() {
+    console.log("Running on port: ", 6500);
+});
 
 Storage.instance.loadCanvas();

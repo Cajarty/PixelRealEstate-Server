@@ -2,6 +2,9 @@ var fs = require('fs');
 var compress = require('lzwcompress');
 var PNG = require('pngjs').PNG;
 
+const USE_COVER_IMAGE = true;
+let COVER_IMAGE = null;
+
 const PATHS = {
     PNG_STORAGE: './cache/image.png',
     BOT_IMAGE_LOC: './BotImages/',
@@ -24,20 +27,55 @@ const UncacheFile = (path, callback) => {
     });
 };
 
+const lerp = (v0, v1, t) => {
+    return v0 * (1 - t) + v1 * t;
+}
+
 const CacheImage = (path, data, callback) => {
     let img = new PNG({
         filterType: 4,
         width: Object.keys(data).length,
         height: data[0].length / 4,
     });
-    for (let i = 0; i < Object.keys(data).length; i++) {
-        for (let j = 0; j < data[i].length; j++) {
-            img.data[i * data[i].length + j] = data[i][j];
+    if (USE_COVER_IMAGE && COVER_IMAGE == null) {
+        fs.createReadStream('./cache/cover.png')
+            .pipe(new PNG({ filterType: 4 }))
+            .on('parsed', function() {
+                COVER_IMAGE = this;
+                for (let i = 0; i < Object.keys(data).length; i++) {
+                    for (let j = 0; j < data[i].length; j++) {
+                        if (j % 4 == 3)
+                            img.data[i * data[i].length + j] = Math.min(255, data[i][j] + COVER_IMAGE.data[i * data[i].length + j]);
+                        else
+                            img.data[i * data[i].length + j] = lerp(data[i][j], COVER_IMAGE.data[i * data[i].length + j], COVER_IMAGE.data[i * data[i].length + (Math.ceil(j / 4) * 4)] / 255);
+                    }
+                }
+                img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
+                    return callback(true);
+                });
+            });
+    } else if (USE_COVER_IMAGE && COVER_IMAGE != null) {
+        for (let i = 0; i < Object.keys(data).length; i++) {
+            for (let j = 0; j < data[i].length; j++) {
+                if (j % 4 == 3)
+                    img.data[i * data[i].length + j] = Math.min(255, data[i][j] + COVER_IMAGE.data[i * data[i].length + j]);
+                else
+                    img.data[i * data[i].length + j] = lerp(data[i][j], COVER_IMAGE.data[i * data[i].length + j], COVER_IMAGE.data[i * data[i].length + (Math.ceil(j / 4) * 4)] / 255);
+            }
         }
+        img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
+            return callback(true);
+        });
+    } else {
+        for (let i = 0; i < Object.keys(data).length; i++) {
+            for (let j = 0; j < data[i].length; j++) {
+                img.data[i * data[i].length + j] = data[i][j];
+            }
+        }
+        img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
+            return callback(true);
+        });
     }
-    img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
-        callback(true);
-    });
 }
 
 const UncacheImage = (path, callback) => {

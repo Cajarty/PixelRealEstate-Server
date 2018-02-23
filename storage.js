@@ -45,7 +45,6 @@ class Storage {
         this.useBot = true;
         this.pauseBot = false;
         this.botTimer = null;
-
     }
 
 
@@ -70,12 +69,11 @@ class Storage {
                     imageName = imageKeys[imageIndex];
                     image = BotImages[imageKeys[imageIndex]];
                 } while (image.width + xPos > 1000);
-                console.info(image.width);
                 console.info('BOT: Placing image:\t[' + imageName + '] at:\tx: [' + xPos + '] y: [' + yPos + ']');
                 this.insertImage(xPos, yPos, image.image);
                 xPos += image.width;
             }
-        }, 5000);
+        }, 5017);
     }
 
     disableBot() {
@@ -192,6 +190,7 @@ class Storage {
             if (this.propertyLoadValue >= 10000) {
                 console.info('Loading property data complete!');
                 this.setupBot();
+                this.setupCacheLoop();
                 this.listenForEvents();
                 return;
             }
@@ -199,7 +198,8 @@ class Storage {
     }
 
     setupCacheLoop() {
-        return;
+        if (this.cacheImageTimer != null)
+            return;
         this.cacheImageTimer = setInterval(() => {
             console.info("Now cacheing image.");
             this.pauseBot = true;
@@ -208,7 +208,7 @@ class Storage {
                 this.pauseBot = false;
                 console.info("Image Cached! " + (new Date()).toString());
             });
-        }, 60000);
+        }, 15000);
     }
 
     stopCacheLoop() {
