@@ -58,6 +58,13 @@ const BotImages = {
     Chalkboard_100x50: { image: null, width: 100, height: 50 },
     Mountains_100x50: { image: null, width: 100, height: 50 },
     TreeTK_100x50: { image: null, width: 100, height: 50 },
+    BurgerQueen_50x50: { image: null, width: 50, height: 50 },
+    Creatures_100x50: { image: null, width: 100, height: 50 },
+    FakeDoors_50x50: { image: null, width: 50, height: 50 },
+    GreenTooth_50x50: { image: null, width: 50, height: 50 },
+    Music_100x50: { image: null, width: 100, height: 50 },
+    Ocean_100x50: { image: null, width: 100, height: 50 },
+    PizzaSpying_100x50: { image: null, width: 100, height: 50 },
 };
 
 function LoadImages() {
