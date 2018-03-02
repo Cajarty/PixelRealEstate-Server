@@ -38,13 +38,16 @@ class Storage {
 
         //debug
         //disables the load 1-100% of gathering pixel data for all properties, used for testing only
-        this.disableCanvasReload = true;
+        this.disableCanvasReload = false;
 
         //enables pre-release advertising bot, must be set to true to use the setupBot function
         //bot images are imported from botData.js
-        this.useBot = true;
+        this.useBot = false;
         this.pauseBot = false;
         this.botTimer = null;
+
+        //enables or disables caching
+        this.cacheImage = false;
     }
 
 
@@ -198,7 +201,7 @@ class Storage {
     }
 
     setupCacheLoop() {
-        if (this.cacheImageTimer != null)
+        if (this.cacheImageTimer != null || !this.cacheImage)
             return;
         this.cacheImageTimer = setInterval(() => {
             console.info("Now cacheing image.");
@@ -248,14 +251,20 @@ class Storage {
             let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
             this.updatePropertyData(xy.x, xy.y, { isForSale: false, owner: data.args.newOwner })
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetUserHoverText, 'SDM-SetUserHoverText', (data) => {});
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetUserSetLink, 'SDM-SetUserSetLink', (data) => {});
+        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetUserHoverText, 'SDM-SetUserHoverText', (data) => {
+            //may need to cache if this is slow loading from contract
+        });
+        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetUserSetLink, 'SDM-SetUserSetLink', (data) => {
+            //may need to cache if this is slow loading from contract
+        });
         ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.PropertySetForSale, 'SDM-PropertySetForSale', (data) => {
             let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.updatePropertyData(xy.x, xy.y, { isForSale: true })
-            console.info(xy);
+            this.updatePropertyData(xy.x, xy.y, { isForSale: true, ETHPrice: data.args.ETHPrice, PPCPrice: data.args.PPCPrice })
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.DelistProperty, 'SDM-DelistProperty', (data) => {});
+        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.DelistProperty, 'SDM-DelistProperty', (data) => {
+            let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
+            this.updatePropertyData(xy.x, xy.y, { isForSale: false, ETHPrice: 0, PPCPrice: 0 })
+        });
         ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.ListTradeOffer, 'SDM-ListTradeOffer', (data) => {});
         ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.AcceptTradeOffer, 'SDM-AcceptTradeOffer', (data) => {});
         ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.CancelTradeOffer, 'SDM-CancelTradeOffer', (data) => {});
@@ -265,7 +274,7 @@ class Storage {
         });
         ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetPropertyPrivate, 'SDM-SetPropertyPrivate', (data) => {
             let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.updatePropertyData(xy.x, xy.y, { isInPrivate: false })
+            this.updatePropertyData(xy.x, xy.y, { isInPrivate: true })
         });
     }
 
