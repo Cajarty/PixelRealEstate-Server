@@ -42,12 +42,12 @@ class Storage {
 
         //enables pre-release advertising bot, must be set to true to use the setupBot function
         //bot images are imported from botData.js
-        this.useBot = false;
+        this.useBot = true;
         this.pauseBot = false;
         this.botTimer = null;
 
         //enables or disables caching
-        this.cacheImage = false;
+        this.cacheImage = true;
     }
 
 
