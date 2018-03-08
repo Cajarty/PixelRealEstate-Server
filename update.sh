@@ -1,6 +1,8 @@
-cd ../../../PixelRealEstate-Server
+cd ./PixelRealEstate-Server
+git checkout -- .
+git checkout master
 git pull origin master
-cd ../public_html/canvas/server
-cp -a ../../../PixelRealEstate-Server/* ./
+cd ..
+cp -a ./PixelRealEstate-Server/* ./public_html/canvas/server/
+cd ./public_html/canvas/server/
 npm install
-truffle migrate
