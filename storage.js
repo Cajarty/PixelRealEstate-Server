@@ -6,6 +6,7 @@ var compress = require('jsoncomp');
 var PNG = require('pngjs').PNG;
 const Response = require('./responses.js');
 const slice = require('array-slice');
+const flags = require('./flags.js');
 const { BotImages, LoadBotImages } = require('./botData.js');
 
 const owner0 = '0x0000000000000000000000000000000000000000';
@@ -38,16 +39,16 @@ class Storage {
 
         //debug
         //disables the load 1-100% of gathering pixel data for all properties, used for testing only
-        this.disableCanvasReload = false;
+        this.disableCanvasReload = flags.RELOAD;
 
         //enables pre-release advertising bot, must be set to true to use the setupBot function
         //bot images are imported from botData.js
-        this.useBot = true;
+        this.useBot = flags.USE_BOT;
         this.pauseBot = false;
         this.botTimer = null;
 
         //enables or disables caching
-        this.cacheImage = true;
+        this.cacheImage = flags.CACHE_IMAGE;
     }
 
 

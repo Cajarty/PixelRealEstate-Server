@@ -8,10 +8,9 @@ const cors = require('cors');
 const https = require('https');
 const helmet = require('helmet');
 const express = require('express');
+const flags = require('./flags.js');
 
-const ENV_DEV = process.argv[2] === 'dev' ? true : false;
-
-if (ENV_DEV) {
+if (flags.ENV_DEV) {
     console.warn("----------------- CAUTION -----------------");
     console.warn("You are running dev. DO NOT use this for production.");
     console.warn("----------------- CAUTION -----------------");
@@ -29,7 +28,7 @@ var app = express();
 app.use(helmet());
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", (ENV_DEV ? '*' : 'https://pixelproperty.io'));
+    res.setHeader("Access-Control-Allow-Origin", (flags.ENV_DEV ? '*' : 'https://pixelproperty.io'));
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
