@@ -209,9 +209,14 @@ class Storage {
             this.pauseBot = true;
             let temp = this.pixelData;
             Cache.CacheImage(Cache.PATHS.PNG_STORAGE, temp, (result) => {
-                this.pauseBot = false;
                 console.info("Image Cached! " + (new Date()).toString());
             });
+            if (!flags.ENV_DEV) {
+                Cache.CacheImage(Cache.PATHS.PORTFOLIO_STORAGE, temp, (result) => {
+                    this.pauseBot = false;
+                    console.info("Image Cached! " + (new Date()).toString());
+                });
+            }
         }, 15000);
     }
 

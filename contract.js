@@ -25,6 +25,8 @@ const EVENTS = {
     SetPropertyPublic: 'SetPropertyPublic', //(uint24 indexed property);
     SetPropertyPrivate: 'SetPropertyPrivate', //(uint24 indexed property, uint32 numHoursPrivate);
 
+    Bid: 'Bid', //(uint24 indexed property, uint256 bid);
+
     //token events    
     Transfer: 'Transfer', //(address indexed _from, address indexed _to, uint256 _value);
     Approval: 'Approval', //(address indexed _owner, address indexed _spender, uint256 _value);

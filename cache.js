@@ -7,6 +7,7 @@ let COVER_IMAGE = null;
 
 const PATHS = {
     PNG_STORAGE: './cache/image.png',
+    PORTFOLIO_STORAGE: '../../img/canvas.png',
     BOT_IMAGE_LOC: './BotImages/',
 }
 
