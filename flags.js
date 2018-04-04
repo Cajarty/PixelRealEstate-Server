@@ -2,6 +2,7 @@ var ENV_DEV = false;
 var RELOAD = false;
 var CACHE_IMAGE = false;
 var USE_BOT = false;
+var USE_COVER = false;
 
 for (let i = 2; i < process.argv.length; i++) {
     if (process.argv[i] === 'dev')
@@ -12,15 +13,18 @@ for (let i = 2; i < process.argv.length; i++) {
         USE_BOT = true;
     if (process.argv[i] === 'reload')
         RELOAD = true;
+    if (process.argv[i] === 'cover')
+        USE_COVER = true;
     if (process.argv[i] === 'help') {
-        console.info("Flags: ", "\nENV_DEV:\tdev", "\nUSE_BOT:\tbot", "\nRELOAD: \treload", "\nCACHE_IMAGE:\tcache");
+        console.info("Flags: ", "\nENV_DEV:\tdev", "\nUSE_BOT:\tbot", "\nRELOAD: \treload", "\nCACHE_IMAGE:\tcache", "\tUSE_COVER:\tcover");
         process.exit();
     }
 }
 
-console.info("Flags enabled: ", ENV_DEV ? "ENV_DEV" : "", USE_BOT ? "USE_BOT" : "", RELOAD ? "RELOAD" : "", CACHE_IMAGE ? "CACHE_IMAGE" : "");
+console.info("Flags enabled: ", ENV_DEV ? "ENV_DEV" : "", USE_BOT ? "USE_BOT" : "", RELOAD ? "RELOAD" : "", CACHE_IMAGE ? "CACHE_IMAGE" : "", USE_COVER ? "USE_COVER" : "");
 
 module.exports.ENV_DEV = ENV_DEV;
 module.exports.RELOAD = RELOAD;
 module.exports.CACHE_IMAGE = CACHE_IMAGE;
 module.exports.USE_BOT = USE_BOT;
+module.exports.USE_COVER = USE_COVER;

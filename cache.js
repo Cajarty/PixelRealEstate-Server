@@ -1,20 +1,27 @@
 var fs = require('fs');
 var compress = require('lzwcompress');
 var PNG = require('pngjs').PNG;
+const flags = require('./flags.js');
 
-const USE_COVER_IMAGE = true;
 let COVER_IMAGE = null;
 
 const PATHS = {
     PNG_STORAGE: './cache/image.png',
+    DATA_STORAGE: './cache/properties.json',
     PORTFOLIO_STORAGE: '../../img/canvas.png',
+    CANVAS_STORAGE_DEV: '../PixelRealEstate/public/assets/canvas/canvas.png',
+    CANVAS_STORAGE: '../assets/canvas/canvas.png',
+    CANVAS_DATA_STORAGE_DEV: '../PixelRealEstate/public/assets/canvas/properties.json',
+    CANVAS_DATA_STORAGE: '../assets/canvas/properties.json',
     BOT_IMAGE_LOC: './BotImages/',
 }
 
-const CacheFile = (path, data) => {
+const CacheFile = (path, data, callback) => {
     fs.writeFile(path, JSON.stringify(data), 'utf8', (err) => {
         if (err)
-            console.info(err);
+            callback(err);
+        else
+            callback(true);
     });
 };
 
@@ -38,7 +45,7 @@ const CacheImage = (path, data, callback) => {
         width: Object.keys(data).length,
         height: data[0].length / 4,
     });
-    if (USE_COVER_IMAGE && COVER_IMAGE == null) {
+    if (flags.USE_COVER && COVER_IMAGE == null) {
         fs.createReadStream('./cache/cover.png')
             .pipe(new PNG({ filterType: 4 }))
             .on('parsed', function() {
@@ -55,7 +62,7 @@ const CacheImage = (path, data, callback) => {
                     return callback(true);
                 });
             });
-    } else if (USE_COVER_IMAGE && COVER_IMAGE != null) {
+    } else if (flags.USE_COVER && COVER_IMAGE != null) {
         for (let i = 0; i < Object.keys(data).length; i++) {
             for (let j = 0; j < data[i].length; j++) {
                 if (j % 4 == 3)

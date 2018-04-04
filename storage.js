@@ -1,6 +1,6 @@
 const ctrWrp = require('./contract.js');
 const Timer = require('./timer.js');
-const Functions = require('./functions.js');
+const Func = require('./functions.js');
 const Cache = require('./cache.js');
 var compress = require('jsoncomp');
 var PNG = require('pngjs').PNG;
@@ -8,6 +8,7 @@ const Response = require('./responses.js');
 const slice = require('array-slice');
 const flags = require('./flags.js');
 const { BotImages, LoadBotImages } = require('./botData.js');
+const EVENTS = require('./events.js');
 
 const owner0 = '0x0000000000000000000000000000000000000000';
 
@@ -49,6 +50,18 @@ class Storage {
 
         //enables or disables caching
         this.cacheImage = flags.CACHE_IMAGE;
+
+        this.evHndl = {
+            [EVENTS.PropertyColorUpdate]: null,
+            [EVENTS.PropertyBought]: null,
+            [EVENTS.SetUserHoverText]: null,
+            [EVENTS.SetUserSetLink]: null,
+            [EVENTS.PropertySetForSale]: null,
+            [EVENTS.DelistProperty]: null,
+            [EVENTS.SetPropertyPublic]: null,
+            [EVENTS.SetPropertyPrivate]: null,
+            [EVENTS.Bid]: null,
+        };
     }
 
 
@@ -99,7 +112,7 @@ class Storage {
     loadCanvas() {
         this.listenForEvents();
         //get current block here and store so that the events know where to start looking at logs
-        console.info('Loading real estate pixels...');
+        console.info('Loading properties...');
         Cache.UncacheImage(Cache.PATHS.PNG_STORAGE, (err, data) => {
             if (data != null) {
                 this.png = data;
@@ -108,13 +121,14 @@ class Storage {
                 }
                 this.loadingComplete = true;
             } else {
-                console.info('No cached canvas image, loading a new one from the contract.');
+                console.info('No cached canvas image, creating a blank one.');
                 let fakeData = [0, 0, 0, 255];
                 for (let y = 0; y < 1000; y++) {
                     this.pixelData[y] = [];
-                    for (let i = 0; i < 1000; i++)
-                        this.pixelData[y].push(fakeData);
+                    for (let i = 0; i < 4000; i++)
+                        this.pixelData[y].push(fakeData[i % 4]);
                 }
+                Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
             }
             console.info('Requesting updates...');
             if (!this.disableCanvasReload)
@@ -172,8 +186,8 @@ class Storage {
     Used for organizing storage from the loadData call for property data.
     */
     storePropertyData(x, y, data) {
-        let ethp = Functions.BigNumberToNumber(data[1]);
-        let ppcp = Functions.BigNumberToNumber(data[2]);
+        let ethp = Func.BigNumberToNumber(data[1]);
+        let ppcp = Func.BigNumberToNumber(data[2]);
         let obj = {
             x: x,
             y: y,
@@ -181,7 +195,7 @@ class Storage {
             isForSale: ppcp != 0,
             ETHPrice: ethp,
             PPCPrice: ppcp,
-            lastUpdate: Functions.BigNumberToNumber(data[3]),
+            lastUpdate: Func.BigNumberToNumber(data[3]),
             isInPrivate: data[4],
         };
         if (this.propertyData[x] == null)
@@ -205,18 +219,32 @@ class Storage {
         if (this.cacheImageTimer != null || !this.cacheImage)
             return;
         this.cacheImageTimer = setInterval(() => {
-            console.info("Now cacheing image.");
+            let string = '';
+            string += ("Now cacheing image.");
             this.pauseBot = true;
             let temp = this.pixelData;
             Cache.CacheImage(Cache.PATHS.PNG_STORAGE, temp, (result) => {
-                console.info("Image Cached! " + (new Date()).toString());
+                string += ("Image Cached! " + (new Date()).toString());
             });
+            Cache.CacheFile(Cache.PATHS.DATA_STORAGE, this.propertyData, (result) => {
+                string += ("Properties Cached! " + (new Date()).toString());
+            });
+            Cache.CacheImage(flags.ENV_DEV ? Cache.PATHS.CANVAS_STORAGE_DEV : Cache.PATHS.CANVAS_STORAGE, temp, (result) => {
+                this.pauseBot = false;
+                string += ("Canvas Cached! " + (new Date()).toString());
+            });
+            Cache.CacheFile(flags.ENV_DEV ? Cache.PATHS.CANVAS_DATA_STORAGE_DEV : Cache.PATHS.CANVAS_DATA_STORAGE, this.propertyData, (result) => {
+                this.pauseBot = false;
+                string += ("Canvas Data Cached! " + (new Date()).toString());
+            });
+
             if (!flags.ENV_DEV) {
                 Cache.CacheImage(Cache.PATHS.PORTFOLIO_STORAGE, temp, (result) => {
                     this.pauseBot = false;
-                    console.info("Image Cached! " + (new Date()).toString());
+                    string += ("Portfolio Cached! " + (new Date()).toString());
                 });
             }
+            console.info(string);
         }, 15000);
     }
 
@@ -247,42 +275,102 @@ class Storage {
     }
 
     listenForEvents() {
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.PropertyColorUpdate, 'SDM-PropertyColorUpdate', (data) => {
-            let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.insertPropertyImage(xy.x, xy.y, Functions.ContractDataToRGBAArray(data.args.colors));
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (handle) => {
+            this.evHndl[EVENTS.PropertyColorUpdate] = handle;
+            this.evHndl[EVENTS.PropertyColorUpdate].watch((error, log) => {
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+                let colors = Func.ContractDataToRGBAArray(log.args.colors);
+                this.forceUpdatePropertyData(id.x, id.y);
+                this.insertPropertyImage(id.x, id.y, colors);
+            });
         });
 
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.PropertyColorUpdatePixel, 'SDM-PropertyColorUpdatePixel', (data) => {});
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.PropertyBought, 'SDM-PropertyBought', (data) => {
-            let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.updatePropertyData(xy.x, xy.y, { isForSale: false, owner: data.args.newOwner })
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertyBought, {}, (handle) => {
+            this.evHndl[EVENTS.PropertyBought] = handle;
+            this.evHndl[EVENTS.PropertyBought].watch((error, log) => {
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+                this.updateProperty(id.x, id.y, { owner: log.args.newOwner });
+                this.organizeProperty(id.x, id.y);
+            });
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetUserHoverText, 'SDM-SetUserHoverText', (data) => {
-            //may need to cache if this is slow loading from contract
+
+        ctrWrp.instance.watchEventLogs(EVENTS.SetUserHoverText, {}, (handle) => {
+            this.evHndl[EVENTS.SetUserHoverText] = handle;
+            this.evHndl[EVENTS.SetUserHoverText].watch((error, log) => {
+                console.error('No Event handler for ', Event.SetUserHoverText);
+            });
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetUserSetLink, 'SDM-SetUserSetLink', (data) => {
-            //may need to cache if this is slow loading from contract
+
+        ctrWrp.instance.watchEventLogs(EVENTS.SetUserSetLink, {}, (handle) => {
+            this.evHndl[EVENTS.SetUserSetLink] = handle;
+            this.evHndl[EVENTS.SetUserSetLink].watch((error, log) => {
+                console.error('No Event handler for ', Event.SetUserSetLink);
+            });
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.PropertySetForSale, 'SDM-PropertySetForSale', (data) => {
-            let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.updatePropertyData(xy.x, xy.y, { isForSale: true, ETHPrice: data.args.ETHPrice, PPCPrice: data.args.PPCPrice })
+
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertySetForSale, {}, (handle) => {
+            this.evHndl[EVENTS.PropertySetForSale] = handle;
+            this.evHndl[EVENTS.PropertySetForSale].watch((error, log) => {
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+                this.updateProperty(id.x, id.y, { isForSale: true });
+                this.organizeProperty(id.x, id.y);
+            });
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.DelistProperty, 'SDM-DelistProperty', (data) => {
-            let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.updatePropertyData(xy.x, xy.y, { isForSale: false, ETHPrice: 0, PPCPrice: 0 })
+
+        ctrWrp.instance.watchEventLogs(EVENTS.DelistProperty, {}, (handle) => {
+            this.evHndl[EVENTS.DelistProperty] = handle;
+            this.evHndl[EVENTS.DelistProperty].watch((error, log) => {
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+                this.updateProperty(id.x, id.y, { isForSale: false });
+                this.organizeProperty(id.x, id.y);
+            });
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.ListTradeOffer, 'SDM-ListTradeOffer', (data) => {});
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.AcceptTradeOffer, 'SDM-AcceptTradeOffer', (data) => {});
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.CancelTradeOffer, 'SDM-CancelTradeOffer', (data) => {});
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetPropertyPublic, 'SDM-SetPropertyPublic', (data) => {
-            let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.updatePropertyData(xy.x, xy.y, { isInPrivate: false })
+
+        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPublic, {}, (handle) => {
+            this.evHndl[EVENTS.SetPropertyPublic] = handle;
+            this.evHndl[EVENTS.SetPropertyPublic].watch((error, log) => {
+                console.info(log);
+                throw 'Need to update the correct data here.';
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+                this.updateProperty(id.x, id.y, { isForSale: false });
+                this.organizeProperty(id.x, id.y);
+            });
         });
-        ctrWrp.instance.listenForEvent(ctrWrp.EVENTS.SetPropertyPrivate, 'SDM-SetPropertyPrivate', (data) => {
-            let xy = ctrWrp.instance.fromID(Functions.BigNumberToNumber(data.args.property));
-            this.updatePropertyData(xy.x, xy.y, { isInPrivate: true })
+
+        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPrivate, {}, (handle) => {
+            this.evHndl[EVENTS.SetPropertyPrivate] = handle;
+            this.evHndl[EVENTS.SetPropertyPrivate].watch((error, log) => {
+                console.info(log);
+                throw 'Need to update the correct data here.';
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+                this.updateProperty(id.x, id.y, { isForSale: false });
+                this.organizeProperty(id.x, id.y);
+            });
+        });
+
+        ctrWrp.instance.watchEventLogs(EVENTS.Bid, {}, (handle) => {
+            this.evHndl[EVENTS.Bid] = handle;
+            this.evHndl[EVENTS.Bid].watch((error, log) => {
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+                let bid = Func.BigNumberToNumber(log.args.bid);
+                let timestamp = Func.BigNumberToNumber(log.args.timestamp);
+                let x = id.x,
+                    y = id.y;
+                if (this.bids[x] == null)
+                    this.bids[x] = {};
+                if (this.bids[x][y] == null)
+                    this.bids[x][y] = {};
+                this.bids[x][y][timestamp] = bid;
+            });
         });
     }
+
+    destructor() {
+        Object.keys(this.evHndl).map((key, i) => {
+            this.evHndl[key].stopWatching();
+        });
+    }
+
 
     /*
     Updates a property at a location with the new passed in data.
