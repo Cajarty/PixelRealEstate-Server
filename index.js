@@ -24,6 +24,7 @@ const options = {
 };
 
 var app = express();
+const PORT = 6510;
 
 app.use(helmet());
 
@@ -50,8 +51,8 @@ app.get('/getPropertyData', (req, res) => {
     res.send(Storage.instance.getPropertyData());
     res.end();
 });
-var server = https.createServer(options, app).listen(6500, function() {
-    console.log("Running on port: ", 6500);
+var server = https.createServer(options, app).listen(PORT, function() {
+    console.log("Running on port: ", PORT);
 });
 
 Storage.instance.loadCanvas();
