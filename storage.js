@@ -265,13 +265,44 @@ class Storage {
         return 'Server is loading data, please wait. (' + (this.propertyLoadValue / 100) + '%)';
     }
 
-    insertPropertyImage(x, y, data) {
-        for (let i = 0; i < Object.keys(data).length; i++) {
-            if (this.pixelData[y * 10 + i] == null)
-                this.pixelData[y * 10 + i] = [];
-            for (let c = 0; c < data[i].length; c++)
-                this.pixelData[y * 10 + i][x * 40 + c] = data[i][c];
-        }
+    insertPropertyImage(xx, yy, RGBArray) {
+        let counter = 0;
+        for (let y = yy * 10; y < (yy + 1) * 10; y++)
+            for (let x = xx * 10; x < (xx + 1) * 10; x++)
+                for (let i = 0; i < 4; i++)
+                    this.pixelData[y][x * 4 + i] = RGBArray[counter++];
+    }
+
+    forceUpdatePropertyData(x, y) {
+        ctrWrp.instance.getPropertyData(x, y, (x, y, data) => {
+            let ethp = Func.BigNumberToNumber(data[1]);
+            let ppcp = Func.BigNumberToNumber(data[2]);
+            let update = {
+                owner: data[0],
+                isForSale: ppcp != 0,
+                ETHPrice: ethp,
+                PPCPrice: ppcp,
+                lastUpdate: Func.BigNumberToNumber(data[3]),
+                isInPrivate: data[4],
+            };
+            this.updatePropertyData(x, y, update);
+        });
+    }
+
+    /*
+    returns a property at a location.
+    */
+    isPropertyLoaded(x, y) {
+        return (this.propertyData[x] != null && this.propertyData[x][y] != null);
+    }
+
+    /*
+    Puts a new property or update on the main list into it.
+    */
+    insertProperty(x, y, property) {
+        if (this.propertyData[x] == null)
+            this.propertyData[x] = {};
+        this.propertyData[x][y] = property;
     }
 
     listenForEvents() {
@@ -289,8 +320,7 @@ class Storage {
             this.evHndl[EVENTS.PropertyBought] = handle;
             this.evHndl[EVENTS.PropertyBought].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updateProperty(id.x, id.y, { owner: log.args.newOwner });
-                this.organizeProperty(id.x, id.y);
+                this.updatePropertyData(id.x, id.y, { owner: log.args.newOwner });
             });
         });
 
@@ -312,8 +342,7 @@ class Storage {
             this.evHndl[EVENTS.PropertySetForSale] = handle;
             this.evHndl[EVENTS.PropertySetForSale].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updateProperty(id.x, id.y, { isForSale: true });
-                this.organizeProperty(id.x, id.y);
+                this.updatePropertyData(id.x, id.y, { isForSale: true });
             });
         });
 
@@ -321,8 +350,7 @@ class Storage {
             this.evHndl[EVENTS.DelistProperty] = handle;
             this.evHndl[EVENTS.DelistProperty].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updateProperty(id.x, id.y, { isForSale: false });
-                this.organizeProperty(id.x, id.y);
+                this.updatePropertyData(id.x, id.y, { isForSale: false });
             });
         });
 
@@ -332,8 +360,7 @@ class Storage {
                 console.info(log);
                 throw 'Need to update the correct data here.';
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updateProperty(id.x, id.y, { isForSale: false });
-                this.organizeProperty(id.x, id.y);
+                this.updatePropertyData(id.x, id.y, { isForSale: false });
             });
         });
 
@@ -343,8 +370,7 @@ class Storage {
                 console.info(log);
                 throw 'Need to update the correct data here.';
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updateProperty(id.x, id.y, { isForSale: false });
-                this.organizeProperty(id.x, id.y);
+                this.updatePropertyData(id.x, id.y, { isForSale: false });
             });
         });
 
