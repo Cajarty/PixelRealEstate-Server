@@ -2,6 +2,7 @@ const Web3 = require('web3');
 const contract = require("truffle-contract");
 const path = require('path');
 const VREPath = require(path.join(__dirname, 'build/contracts/VirtualRealEstate.json'));
+const PXLPPPath = require(path.join(__dirname, 'build/contracts/PXLProperty.json'));
 const Func = require('./functions.js');
 const Timer = require('./timer.js');
 
@@ -34,14 +35,18 @@ const EVENTS = {
 
 class Contract {
     constructor() {
-        this.VRE = null; //contract reference
+        this.VRE = null; //DApp contract reference
+        this.PXLPP = null; //Storage contract reference
 
         // Setup RPC connection   
+        // 52.169.42.101:30303
         let VREProvider = new Web3.providers.HttpProvider("http://localhost:8545"); //window.web3.currentProvider
 
         // Read JSON and attach RPC connection (Provider)
         this.VRE = contract(VREPath);
         this.VRE.setProvider(VREProvider);
+        this.PXLPP = contract(PXLPPPath);
+        this.PXLPP.setProvider(VREProvider);
     }
 
     // ---------------------------------------------------------------------------------------------------------
@@ -107,6 +112,7 @@ class Contract {
 
         let filter = { fromBlock: 0, toBlock: 'latest' };
 
+        // VRE Dapp Events
         this.VRE.deployed().then((i) => {
             switch (event) {
                 case EVENTS.PropertyBought:
@@ -127,6 +133,12 @@ class Contract {
                     return i.SetPropertyPrivate(params, filter).get(callback);
                 case EVENTS.Bid:
                     return i.Bid(params, filter).get(callback);
+            }
+        });
+
+        // ERC20 PXL Events
+        this.PXLPP.deployed().then((i) => {
+            switch(event) {
                 case EVENTS.Transfer:
                     return i.Transfer(params, filter).get(callback);
                 case EVENTS.Approval:
@@ -141,6 +153,7 @@ class Contract {
     watchEventLogs(event, params, callback) {
         let filter = { fromBlock: 0, toBlock: 'latest' };
 
+        // VRE Dapp Events
         this.VRE.deployed().then((i) => {
             switch (event) {
                 case EVENTS.PropertyBought:
@@ -161,12 +174,20 @@ class Contract {
                     return callback(i.SetPropertyPrivate(params, filter));
                 case EVENTS.Bid:
                     return callback(i.Bid(params, filter));
+            }
+        });
+
+        // ERC20 PXL Events
+        this.PXLPP.deployed().then((i) => {
+            switch(event) {
                 case EVENTS.Transfer:
                     return callback(i.Transfer(params, filter));
                 case EVENTS.Approval:
                     return callback(i.Approval(params, filter));
             }
         });
+
+
     }
 
     toID(x, y) {
@@ -321,7 +342,7 @@ class Contract {
     // ---------------------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------------------
     getBalance(callback) {
-        this.VRE.deployed().then((i) => {
+        this.PXLPP.deployed().then((i) => {
             i.balanceOf(this.account, { from: this.account }).then((r) => {
                 callback(Func.BigNumberToNumber(r));
             });
@@ -352,8 +373,8 @@ class Contract {
     }
 
     getHoverText(address, callback) {
-        this.VRE.deployed().then((i) => {
-            return i.getHoverText.call(address).then((r) => {
+        this.PXLPP.deployed().then((i) => {
+            return i.getOwnerHoverText.call(address).then((r) => {
                 return callback(Func.BigIntsToString(r));
             });
         }).catch((e) => {
@@ -362,8 +383,8 @@ class Contract {
     }
 
     getLink(address, callback) {
-        this.VRE.deployed().then((i) => {
-            return i.getLink.call(address).then((r) => {
+        this.PXLPP.deployed().then((i) => {
+            return i.getOwnerLink.call(address).then((r) => {
                 return callback(Func.BigIntsToString(r));
             });
         }).catch((e) => {
@@ -372,7 +393,7 @@ class Contract {
     }
 
     getPropertyColorsOfRow(x, row, callback) {
-        this.VRE.deployed().then((i) => {
+        this.PXLPP.deployed().then((i) => {
             return i.getPropertyColorsOfRow.call(x, row).then((r) => {
                 callback(x, row, Func.ContractDataToRGBAArray(r));
             });
@@ -382,7 +403,7 @@ class Contract {
     }
 
     getPropertyColors(x, y, callback) {
-        this.VRE.deployed().then((i) => {
+        this.PXLPP.deployed().then((i) => {
             return i.getPropertyColors.call(this.toID(x, y)).then((r) => {
                 callback(x, y, Func.ContractDataToRGBAArray(r));
             });
