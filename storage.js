@@ -312,7 +312,7 @@ class Storage {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 let colors = Func.ContractDataToRGBAArray(log.args.colors);
                 this.forceUpdatePropertyData(id.x, id.y);
-                this.insertPropertyImage(id.x, id.y, colors);
+                this.insertImage(id.x * 10, id.y * 10, colors);
             });
         });
 
@@ -321,20 +321,6 @@ class Storage {
             this.evHndl[EVENTS.PropertyBought].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, { owner: log.args.newOwner });
-            });
-        });
-
-        ctrWrp.instance.watchEventLogs(EVENTS.SetUserHoverText, {}, (handle) => {
-            this.evHndl[EVENTS.SetUserHoverText] = handle;
-            this.evHndl[EVENTS.SetUserHoverText].watch((error, log) => {
-                console.error('No Event handler for ', Event.SetUserHoverText);
-            });
-        });
-
-        ctrWrp.instance.watchEventLogs(EVENTS.SetUserSetLink, {}, (handle) => {
-            this.evHndl[EVENTS.SetUserSetLink] = handle;
-            this.evHndl[EVENTS.SetUserSetLink].watch((error, log) => {
-                console.error('No Event handler for ', Event.SetUserSetLink);
             });
         });
 
