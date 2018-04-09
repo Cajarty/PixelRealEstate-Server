@@ -40,7 +40,7 @@ class Contract {
 
         // Setup RPC connection   
         // 52.169.42.101:30303
-        let VREProvider = new Web3.providers.HttpProvider("http://localhost:8545"); //window.web3.currentProvider
+        let VREProvider = new Web3.providers.HttpProvider("http://127.0.0.1:8545"); //window.web3.currentProvider
 
         // Read JSON and attach RPC connection (Provider)
         this.VRE = contract(VREPath);
@@ -134,16 +134,20 @@ class Contract {
                 case EVENTS.Bid:
                     return i.Bid(params, filter).get(callback);
             }
+        }).catch((e) => {
+            console.error(e);
         });
 
         // ERC20 PXL Events
         this.PXLPP.deployed().then((i) => {
-            switch(event) {
+            switch (event) {
                 case EVENTS.Transfer:
                     return i.Transfer(params, filter).get(callback);
                 case EVENTS.Approval:
                     return i.Approval(params, filter).get(callback);
             }
+        }).catch((e) => {
+            console.error(e);
         });
     }
 
@@ -175,19 +179,21 @@ class Contract {
                 case EVENTS.Bid:
                     return callback(i.Bid(params, filter));
             }
+        }).catch((e) => {
+            console.error(e);
         });
 
         // ERC20 PXL Events
         this.PXLPP.deployed().then((i) => {
-            switch(event) {
+            switch (event) {
                 case EVENTS.Transfer:
                     return callback(i.Transfer(params, filter));
                 case EVENTS.Approval:
                     return callback(i.Approval(params, filter));
             }
+        }).catch((e) => {
+            console.error(e);
         });
-
-
     }
 
     toID(x, y) {
@@ -293,6 +299,8 @@ class Contract {
         this.VRE.deployed().then((i) => {
             return i.transferProperty(this.toID(parseInt(x), parseInt(y)), newOwner, { from: this.account }).then((r) => {
                 return callback(true);
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             return callback(false);
@@ -345,6 +353,8 @@ class Contract {
         this.PXLPP.deployed().then((i) => {
             i.balanceOf(this.account, { from: this.account }).then((r) => {
                 callback(Func.BigNumberToNumber(r));
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.info(e);
@@ -356,6 +366,8 @@ class Contract {
         this.VRE.deployed().then((i) => {
             return i.getSystemSalePrices.call().then((r) => {
                 return callback(r);
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.log(e);
@@ -366,6 +378,8 @@ class Contract {
         this.VRE.deployed().then((i) => {
             return i.getForSalePrices.call(this.toID(x, y)).then((r) => {
                 return callback(r);
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.log(e);
@@ -376,6 +390,8 @@ class Contract {
         this.PXLPP.deployed().then((i) => {
             return i.getOwnerHoverText.call(address).then((r) => {
                 return callback(Func.BigIntsToString(r));
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.log(e);
@@ -386,6 +402,8 @@ class Contract {
         this.PXLPP.deployed().then((i) => {
             return i.getOwnerLink.call(address).then((r) => {
                 return callback(Func.BigIntsToString(r));
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.log(e);
@@ -396,6 +414,8 @@ class Contract {
         this.PXLPP.deployed().then((i) => {
             return i.getPropertyColorsOfRow.call(x, row).then((r) => {
                 callback(x, row, Func.ContractDataToRGBAArray(r));
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.log(e);
@@ -406,6 +426,8 @@ class Contract {
         this.PXLPP.deployed().then((i) => {
             return i.getPropertyColors.call(this.toID(x, y)).then((r) => {
                 callback(x, y, Func.ContractDataToRGBAArray(r));
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.log(e);
@@ -417,6 +439,8 @@ class Contract {
         this.VRE.deployed().then((i) => {
             i.getPropertyData.call(this.toID(x, y)).then((r) => {
                 return callback(x, y, r);
+            }).catch((e) => {
+                console.error(e);
             });
         }).catch((e) => {
             console.log(e);

@@ -1,0 +1,943 @@
+Flags enabled:  ENV_DEV   CACHE_IMAGE 
+----------------- CAUTION -----------------
+You are running dev. DO NOT use this for production.
+----------------- CAUTION -----------------
+Loading properties...
+Running on port:  6500
+Requesting updates...
+Loading canvas data: 1%
+Loading canvas data: 2%
+Loading canvas data: 3%
+Loading canvas data: 4%
+Loading canvas data: 5%
+Loading canvas data: 6%
+Loading canvas data: 7%
+Loading canvas data: 8%
+Loading canvas data: 9%
+Loading canvas data: 10%
+Loading canvas data: 11%
+Loading canvas data: 12%
+Loading canvas data: 13%
+Loading canvas data: 14%
+Loading canvas data: 15%
+Loading canvas data: 16%
+Loading canvas data: 17%
+Loading canvas data: 18%
+Loading canvas data: 19%
+Loading canvas data: 20%
+Loading canvas data: 21%
+Loading canvas data: 22%
+Loading canvas data: 23%
+Loading canvas data: 24%
+Loading canvas data: 25%
+Loading canvas data: 26%
+Loading canvas data: 27%
+Loading canvas data: 28%
+Loading canvas data: 29%
+Loading canvas data: 30%
+Loading canvas data: 31%
+Loading canvas data: 32%
+Loading canvas data: 33%
+Loading canvas data: 34%
+Loading canvas data: 35%
+Loading canvas data: 36%
+Loading canvas data: 37%
+Loading canvas data: 38%
+Loading canvas data: 39%
+Loading canvas data: 40%
+Loading canvas data: 41%
+Loading canvas data: 42%
+Loading canvas data: 43%
+Loading canvas data: 44%
+Loading canvas data: 45%
+Loading canvas data: 46%
+Loading canvas data: 47%
+Loading canvas data: 48%
+Loading canvas data: 49%
+Loading canvas data: 50%
+Loading canvas data: 51%
+Loading canvas data: 52%
+Loading canvas data: 53%
+Loading canvas data: 54%
+Loading canvas data: 55%
+Loading canvas data: 56%
+Loading canvas data: 57%
+Loading canvas data: 58%
+Loading canvas data: 59%
+Loading canvas data: 60%
+Loading canvas data: 61%
+Loading canvas data: 62%
+Loading canvas data: 63%
+Loading canvas data: 64%
+Loading canvas data: 65%
+Loading canvas data: 66%
+Loading canvas data: 67%
+Loading canvas data: 68%
+Loading canvas data: 69%
+Loading canvas data: 70%
+Loading canvas data: 71%
+Loading canvas data: 72%
+Loading canvas data: 73%
+Loading canvas data: 74%
+Loading canvas data: 75%
+Loading canvas data: 76%
+Loading canvas data: 77%
+Loading canvas data: 78%
+Loading canvas data: 79%
+Loading canvas data: 80%
+Loading canvas data: 81%
+Loading canvas data: 82%
+Loading canvas data: 83%
+Loading canvas data: 84%
+Loading canvas data: 85%
+Loading canvas data: 86%
+Loading canvas data: 87%
+Loading canvas data: 88%
+Loading canvas data: 89%
+Loading canvas data: 90%
+Loading canvas data: 91%
+Loading canvas data: 92%
+Loading canvas data: 93%
+Loading canvas data: 94%
+Loading canvas data: 95%
+Loading canvas data: 96%
+Loading canvas data: 97%
+Loading canvas data: 98%
+Loading canvas data: 99%
+Verifying load was successful.
+Loading complete! Cacheing image to file for quick reload.
+Loading property data: 1%
+Loading property data: 2%
+Loading property data: 3%
+Loading property data: 4%
+Loading property data: 5%
+Loading property data: 6%
+Loading property data: 7%
+Loading property data: 8%
+Loading property data: 9%
+Loading property data: 10%
+Loading property data: 11%
+Loading property data: 12%
+Loading property data: 13%
+Loading property data: 14%
+Loading property data: 15%
+Loading property data: 16%
+Loading property data: 17%
+Loading property data: 18%
+Loading property data: 19%
+Loading property data: 20%
+Loading property data: 21%
+Loading property data: 22%
+Loading property data: 23%
+Loading property data: 24%
+Loading property data: 25%
+Loading property data: 26%
+Loading property data: 27%
+Loading property data: 28%
+Loading property data: 29%
+Loading property data: 30%
+Loading property data: 31%
+Loading property data: 32%
+Loading property data: 33%
+Loading property data: 34%
+Loading property data: 35%
+Loading property data: 36%
+Loading property data: 37%
+Loading property data: 38%
+Loading property data: 39%
+Loading property data: 40%
+Loading property data: 41%
+Loading property data: 42%
+Loading property data: 43%
+Loading property data: 44%
+Loading property data: 45%
+Loading property data: 46%
+Loading property data: 47%
+Loading property data: 48%
+Loading property data: 49%
+Loading property data: 50%
+Loading property data: 51%
+Loading property data: 52%
+Loading property data: 53%
+Loading property data: 54%
+Loading property data: 55%
+Loading property data: 56%
+Loading property data: 57%
+Loading property data: 58%
+Loading property data: 59%
+Loading property data: 60%
+Loading property data: 61%
+Loading property data: 62%
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Error: Invalid JSON RPC response: ""
+    at Object.InvalidResponse (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/errors.js:38:16)
+    at XMLHttpRequest.request.onreadystatechange (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/web3/lib/web3/httpprovider.js:125:24)
+    at XMLHttpRequestEventTarget.dispatchEvent (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:64:18)
+    at XMLHttpRequest._setReadyState (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:354:12)
+    at XMLHttpRequest._onHttpRequestError (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:544:12)
+    at ClientRequest.<anonymous> (/Users/jaegarsarauer/Documents/DATA/CajartyComputing/Projects/PixelRealEstate-Server/node_modules/xhr2/lib/xhr2.js:414:24)
+    at ClientRequest.emit (events.js:180:13)
+    at Socket.socketErrorListener (_http_client.js:395:9)
+    at Socket.emit (events.js:180:13)
+    at emitErrorNT (internal/streams/destroy.js:64:8)
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.
+Now cacheing image.

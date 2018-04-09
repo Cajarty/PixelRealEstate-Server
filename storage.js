@@ -167,7 +167,6 @@ class Storage {
             }
         console.info('Loading complete! Cacheing image to file for quick reload.');
         Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
-        this.setupCacheLoop();
         this.loadData();
         this.loadingComplete = true;
     }
@@ -204,7 +203,7 @@ class Storage {
         this.propertyLoadValue++;
         if (this.propertyLoadValue >= (y + 1) * 100) {
             console.info('Loading property data: ' + (this.propertyLoadValue / 100) + '%');
-            this.loadData(y + 1);
+            setTimeout(() => this.loadData(y + 1), 500);
             if (this.propertyLoadValue >= 10000) {
                 console.info('Loading property data complete!');
                 this.setupBot();
@@ -344,7 +343,7 @@ class Storage {
             this.evHndl[EVENTS.SetPropertyPublic] = handle;
             this.evHndl[EVENTS.SetPropertyPublic].watch((error, log) => {
                 console.info(log);
-                throw 'Need to update the correct data here.';
+                //throw 'Need to update the correct data here.';
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, { isForSale: false });
             });
@@ -354,7 +353,7 @@ class Storage {
             this.evHndl[EVENTS.SetPropertyPrivate] = handle;
             this.evHndl[EVENTS.SetPropertyPrivate].watch((error, log) => {
                 console.info(log);
-                throw 'Need to update the correct data here.';
+                //throw 'Need to update the correct data here.';
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, { isForSale: false });
             });
