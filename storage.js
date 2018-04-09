@@ -35,6 +35,7 @@ class Storage {
         this.pixelsRented = {};
         this.pixelsForSale = {};
         this.pixelsForRent = {};
+        this.bids = {};
         this.insertPixelRow = this.insertPixelRow.bind(this);
         this.storePropertyData = this.storePropertyData.bind(this);
 
