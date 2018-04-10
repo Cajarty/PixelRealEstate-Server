@@ -114,29 +114,39 @@ class Storage {
         this.listenForEvents();
         //get current block here and store so that the events know where to start looking at logs
         console.info('Loading properties...');
-        Cache.UncacheImage(Cache.PATHS.PNG_STORAGE, (err, data) => {
-            if (data != null) {
-                this.png = data;
-                for (let y = 0; y < 1000; y++) {
-                    this.pixelData[y] = slice(data.data, y * 4000, (y + 1) * 4000);
-                }
-                this.loadingComplete = true;
-            } else {
-                console.info('No cached canvas image, creating a blank one.');
-                let fakeData = [0, 0, 0, 255];
-                for (let y = 0; y < 1000; y++) {
-                    this.pixelData[y] = [];
-                    for (let i = 0; i < 4000; i++)
-                        this.pixelData[y].push(fakeData[i % 4]);
-                }
-                Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
+        if (!flags.RELOAD) {
+            let fakeData = [0, 0, 0, 255];
+            for (let y = 0; y < 1000; y++) {
+                this.pixelData[y] = [];
+                for (let i = 0; i < 4000; i++)
+                    this.pixelData[y].push(fakeData[i % 4]);
             }
-            console.info('Requesting updates...');
-            if (!this.disableCanvasReload)
-                this.loadCanvasChunk(0);
-            else
-                this.loadData();
-        });
+            this.loadCanvasChunk(0);
+        } else {
+            Cache.UncacheImage(Cache.PATHS.PNG_STORAGE, (err, data) => {
+                if (data != null) {
+                    this.png = data;
+                    for (let y = 0; y < 1000; y++) {
+                        this.pixelData[y] = slice(data.data, y * 4000, (y + 1) * 4000);
+                    }
+                    this.loadingComplete = true;
+                } else {
+                    console.info('No cached canvas image, creating a blank one.');
+                    let fakeData = [0, 0, 0, 255];
+                    for (let y = 0; y < 1000; y++) {
+                        this.pixelData[y] = [];
+                        for (let i = 0; i < 4000; i++)
+                            this.pixelData[y].push(fakeData[i % 4]);
+                    }
+                    Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
+                }
+                console.info('Requesting updates...');
+                if (!this.disableCanvasReload)
+                    this.loadCanvasChunk(0);
+                else
+                    this.loadData();
+            });
+        }
     }
 
     loadCanvasChunk(x) {

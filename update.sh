@@ -5,4 +5,4 @@ cd ..
 cp -a ./PixelRealEstate-Server/* ./public_html/canvas/server/
 cd ./public_html/canvas/server/
 npm install
-node . cache reload & serverout.txt > &
+node . cache reload &> serverout.txt &

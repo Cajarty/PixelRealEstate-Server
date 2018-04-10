@@ -10,8 +10,8 @@ const PATHS = {
     DATA_STORAGE: './cache/properties.json',
     PORTFOLIO_STORAGE: '../../img/canvas.png',
     CANVAS_STORAGE_DEV: '../PixelRealEstate/public/assets/canvas/canvas.png',
-    CANVAS_STORAGE: '../assets/canvas.png',
-    CANVAS_STORAGE_PORTFOLIO: '../../img/canvas/canvas.png',
+    CANVAS_STORAGE: '../assets/canvas/canvas.png',
+    CANVAS_STORAGE_PORTFOLIO: '../../img/canvas.png',
     CANVAS_DATA_STORAGE_DEV: '../PixelRealEstate/public/assets/canvas/properties.json',
     CANVAS_DATA_STORAGE: '../assets/canvas/properties.json',
     BOT_IMAGE_LOC: './BotImages/',
@@ -29,7 +29,7 @@ const CacheFile = (path, data, callback) => {
 const UncacheFile = (path, callback) => {
     fs.readFile(path, 'utf8', (err, data) => {
         if (err)
-            return callback(err, null);
+            return callback(err, {});
         if (data)
             return callback(err, JSON.parse(data));
         console.info('No data from load.');
