@@ -29,7 +29,7 @@ const PORT = 6500;
 app.use(helmet());
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", (flags.ENV_DEV ? '*' : 'https://pixelproperty.io'));
+    res.setHeader("Access-Control-Allow-Origin", (flags.ENV_DEV ? '*' : 'https://canvas.pixelproperty.io'));
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
