@@ -78,7 +78,7 @@ const BotImages = {
 function LoadImages() {
     let imageNames = Object.keys(BotImages);
     for (let i = 0; i < imageNames.length; i++) {
-        Cache.UncacheImage(Cache.PATHS.BOT_IMAGE_LOC + imageNames[i] + '.png', (err, imgData) => {
+        Cache.UncacheImage(Cache.PATHS.BOT_IMAGES, (err, imgData) => {
             if (imgData != null) {
                 let finalData = {};
                 for (let y = 0; y < imgData.height; y++) {
@@ -93,7 +93,7 @@ function LoadImages() {
             } else {
                 console.info('Error loading bot image ' + imageNames[i]);
             }
-        });
+        }, imageNames[i] + '.png');
     }
 }
 

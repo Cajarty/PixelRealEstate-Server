@@ -2,23 +2,25 @@ var fs = require('fs');
 var compress = require('lzwcompress');
 var PNG = require('pngjs').PNG;
 const flags = require('./flags.js');
+const shell = require('shelljs');
 
 let COVER_IMAGE = null;
 
 const PATHS = {
-    PNG_STORAGE: './cache/image.png',
-    DATA_STORAGE: './cache/properties.json',
-    PORTFOLIO_STORAGE: '../../img/canvas.png',
-    CANVAS_STORAGE_DEV: '../PixelRealEstate/public/assets/canvas/canvas.png',
-    CANVAS_STORAGE: '../assets/canvas/canvas.png',
-    CANVAS_STORAGE_PORTFOLIO: '../../img/canvas.png',
-    CANVAS_DATA_STORAGE_DEV: '../PixelRealEstate/public/assets/canvas/properties.json',
-    CANVAS_DATA_STORAGE: '../assets/canvas/properties.json',
-    BOT_IMAGE_LOC: './BotImages/',
+    PNG_STORAGE: { dir: "./cache/", name: "image.png" },
+    DATA_STORAGE: { dir: "./cache/", name: "properties.json" },
+    PORTFOLIO_STORAGE: { dir: "../../img/", name: "canvas.png" },
+    CANVAS_STORAGE_DEV: { dir: "../PixelRealEstate/public/assets/canvas/", name: "canvas.png" },
+    CANVAS_STORAGE: { dir: "../assets/canvas/", name: "canvas.png" },
+    CANVAS_STORAGE_PORTFOLIO: { dir: "../../img/", name: "canvas.png" },
+    CANVAS_DATA_STORAGE_DEV: { dir: "../PixelRealEstate/public/assets/canvas/", name: "properties.json" },
+    CANVAS_DATA_STORAGE: { dir: "../assets/canvas/", name: "properties.json" },
+    BOT_IMAGES: { dir: "./BotImages/", name: "" },
 }
 
 const CacheFile = (path, data, callback) => {
-    fs.writeFile(path, JSON.stringify(data), 'utf8', (err) => {
+    shell.mkdir('-p', path.dir);
+    fs.writeFile(path.dir + path.name, JSON.stringify(data), 'utf8', (err) => {
         if (err)
             callback(err);
         else
@@ -27,7 +29,8 @@ const CacheFile = (path, data, callback) => {
 };
 
 const UncacheFile = (path, callback) => {
-    fs.readFile(path, 'utf8', (err, data) => {
+    shell.mkdir('-p', path.dir);
+    fs.readFile(path.dir + path.name, 'utf8', (err, data) => {
         if (err)
             return callback(err, {});
         if (data)
@@ -59,7 +62,8 @@ const CacheImage = (path, data, callback) => {
                             img.data[i * data[i].length + j] = lerp(data[i][j], COVER_IMAGE.data[i * data[i].length + j], COVER_IMAGE.data[i * data[i].length + (Math.ceil(j / 4) * 4)] / 255);
                     }
                 }
-                img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
+                shell.mkdir('-p', path.dir);
+                img.pack().pipe(fs.createWriteStream(path.dir + path.name)).on('finish', () => {
                     return callback(true);
                 });
             });
@@ -72,7 +76,8 @@ const CacheImage = (path, data, callback) => {
                     img.data[i * data[i].length + j] = lerp(data[i][j], COVER_IMAGE.data[i * data[i].length + j], COVER_IMAGE.data[i * data[i].length + (Math.ceil(j / 4) * 4)] / 255);
             }
         }
-        img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
+        shell.mkdir('-p', path.dir);
+        img.pack().pipe(fs.createWriteStream(path.dir + path.name)).on('finish', () => {
             return callback(true);
         });
     } else {
@@ -81,14 +86,19 @@ const CacheImage = (path, data, callback) => {
                 img.data[i * data[i].length + j] = data[i][j];
             }
         }
-        img.pack().pipe(fs.createWriteStream(path)).on('finish', () => {
+        shell.mkdir('-p', path.dir);
+        img.pack().pipe(fs.createWriteStream(path.dir + path.name)).on('finish', () => {
             return callback(true);
         });
     }
 }
 
-const UncacheImage = (path, callback) => {
-    fs.createReadStream(path)
+const UncacheImage = (p, callback, fileName = null) => {
+    let path = p;
+    if (fileName != null)
+        path.name = fileName;
+    shell.mkdir('-p', path.dir);
+    fs.createReadStream(path.dir + path.name)
         .on('error', (err) => {
             return callback(err, null);
         })
