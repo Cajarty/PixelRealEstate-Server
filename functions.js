@@ -176,15 +176,15 @@ const ContractDataToRGBAArray = (/*uint256[5]*/ contractDataArray) => {
         let uint256 = bigInt(contractDataArray[i].toString(10), 10);
         for (let j = 0; j < COLORS_PER_256; j++) {
             result.unshift(255);
-            result.unshift(Math.round(uint256.and(LNUMBER).divide(LNUMBER).toJSNumber()));
+            result.unshift(uint256.and(LNUMBER - 1).toJSNumber() / LNUMBER);
             uint256 = uint256.shiftRight(LBITS); 
-            result.unshift(Math.round(uint256.and(SNUMBER).divide(SNUMBER).toJSNumber()));
+            result.unshift(uint256.and(SNUMBER - 1).toJSNumber() / SNUMBER);
             uint256 = uint256.shiftRight(SBITS);
-            result.unshift(Math.round(uint256.and(HNUMBER).divide(HNUMBER).toJSNumber()));
+            result.unshift(uint256.and(HNUMBER - 1).toJSNumber() / HNUMBER);
             uint256 = uint256.shiftRight(HBITS);
             let rgb = HSLtoRGB(result[0], result[1], result[2]);
-            for (let i = 0; i < 3; i++)
-                result[i] = rgb[i];
+            for (let f = 0; f < 3; f++)
+                result[f] = rgb[f];
         }
     }
     return result;
@@ -197,12 +197,13 @@ const RGBArrayToContractData = (rgbArray) => {
     for(let i = 0; i < CONTRACT_DATA_ARRAY_SIZE; i++) { //Foreach uint256 in uint256[10]
         let innerResult = new bigInt("0", 10);
         for(let j = 0; j < COLORS_PER_256; j++) { //Foreach h, s, l bits for the uint256
-            let binary = RGBToBinary(rgbArray[counter++], rgbArray[counter++], rgbArray[counter++]);
-            counter++;
+            let hsl = RGBtoHSL(rgbArray[counter], rgbArray[counter + 1], rgbArray[counter + 2]);
+            let binary = RGBToBinary(Math.round(Math.min(hsl[0] * HNUMBER, HNUMBER - 1)), Math.round(Math.min(hsl[1] * SNUMBER, SNUMBER - 1)), Math.round(Math.min(hsl[2] * LNUMBER, LNUMBER - 1)));
+            counter+=4;
             innerResult = innerResult.shiftLeft(HBITS + SBITS + LBITS);
             innerResult = innerResult.or(binary);
         }
-        result.push(new BigNumber(innerResult.toString(), 10));
+        result.push(new BigNumber(innerResult.toString(10), 10));
     }
     return result;
 }
