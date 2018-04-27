@@ -118,8 +118,8 @@ class Storage {
             let fakeData = [0, 0, 0, 255];
             for (let y = 0; y < 1000; y++) {
                 this.pixelData[y] = [];
-                for (let i = 0; i < 4000; i++)
-                    this.pixelData[y].push(fakeData[i % 4]);
+                for (let i = 0; i < 1000; i++)
+                    this.pixelData[y].concat(fakeData);
             }
             this.loadCanvasChunk(0);
         } else {
@@ -135,8 +135,8 @@ class Storage {
                     let fakeData = [0, 0, 0, 255];
                     for (let y = 0; y < 1000; y++) {
                         this.pixelData[y] = [];
-                        for (let i = 0; i < 4000; i++)
-                            this.pixelData[y].push(fakeData[i % 4]);
+                        for (let i = 0; i < 1000; i++)
+                            this.pixelData[y].concat(fakeData);
                     }
                     Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
                 }
@@ -156,7 +156,7 @@ class Storage {
     }
 
     insertPixelRow(x, y, data) {
-        this.insertImage(x * 10, y * 10, data);
+        this.insertPropertyImage(x, y, data);
         this.loadValue += 1;
         if (this.loadValue == (x + 1) * 100 && this.loadValue < 10000) {
             console.info('Loading canvas data: ' + (this.loadValue / 100) + '%');

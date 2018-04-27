@@ -46,8 +46,8 @@ const lerp = (v0, v1, t) => {
 const CacheImage = (path, data, callback) => {
     let img = new PNG({
         filterType: 4,
-        width: Object.keys(data).length,
-        height: data[0].length / 4,
+        width: 1000,
+        height: 1000,
     });
     if (flags.USE_COVER && COVER_IMAGE == null) {
         fs.createReadStream('./cache/cover.png')
