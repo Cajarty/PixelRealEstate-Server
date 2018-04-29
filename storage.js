@@ -111,7 +111,6 @@ class Storage {
     }
 
     loadCanvas() {
-        this.listenForEvents();
         //get current block here and store so that the events know where to start looking at logs
         console.info('Loading properties...');
         if (!flags.RELOAD) {
@@ -322,7 +321,7 @@ class Storage {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 let colors = Func.ContractDataToRGBAArray(log.args.colors);
                 this.forceUpdatePropertyData(id.x, id.y);
-                this.insertImage(id.x * 10, id.y * 10, colors);
+                this.insertPropertyImage(id.x, id.y, colors);
             });
         });
 
