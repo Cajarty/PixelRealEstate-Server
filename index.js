@@ -17,8 +17,8 @@ if (flags.ENV_DEV) {
 }
 
 const options = {
-    key: fs.readFileSync('./ssl/ssl.key'),
-    cert: fs.readFileSync('./ssl/ssl.crt'),
+    key: (flags.ENV_DEV ? fs.readFileSync('./ssl/ssl.key') : fs.readFileSync('./ssl/prod/ssl.key')),
+    cert: (flags.ENV_DEV ? fs.readFileSync('./ssl/ssl.crt') : fs.readFileSync('./ssl/prod/ssl.crt')),
     requestCert: false,
     rejectUnauthorized: false
 };
