@@ -438,7 +438,7 @@ class Storage {
             this.evHndl[EVENTS.PropertySetForSale] = handle;
             this.evHndl[EVENTS.PropertySetForSale].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, { isForSale: true });
+                this.updatePropertyData(id.x, id.y, {isForSale: true, PPCPrice: Func.BigNumberToNumber(log.args.forSalePrice)});
             });
         });
 
@@ -446,27 +446,25 @@ class Storage {
             this.evHndl[EVENTS.DelistProperty] = handle;
             this.evHndl[EVENTS.DelistProperty].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, { isForSale: false });
+                this.updatePropertyData(id.x, id.y, { isForSale: false, PPCPrice: 0 });
             });
         });
 
         ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPublic, {}, (handle) => {
             this.evHndl[EVENTS.SetPropertyPublic] = handle;
             this.evHndl[EVENTS.SetPropertyPublic].watch((error, log) => {
-                console.info(log);
                 //throw 'Need to update the correct data here.';
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, { isForSale: false });
+                this.updatePropertyData(id.x, id.y, {isInPrivate: false, becomePublic: 0});
             });
         });
 
         ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPrivate, {}, (handle) => {
             this.evHndl[EVENTS.SetPropertyPrivate] = handle;
             this.evHndl[EVENTS.SetPropertyPrivate].watch((error, log) => {
-                console.info(log);
                 //throw 'Need to update the correct data here.';
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, { isForSale: false });
+                this.updatePropertyData(id.x, id.y, {isInPrivate: true, becomePublic: Func.BigNumberToNumber(log.args.numMinutesPrivate)});
             });
         });
 
