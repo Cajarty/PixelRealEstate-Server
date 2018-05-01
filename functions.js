@@ -316,3 +316,4 @@ module.exports.RGBToBinary = RGBToBinary;
 module.exports.BinaryToRGB = BinaryToRGB;
 
 module.exports.BigNumberToNumber = BigNumberToNumber;
+module.exports.calculateEarnings = calculateEarnings;

@@ -52,6 +52,10 @@ app.get('/getPropertyData', (req, res) => {
     res.send(Storage.instance.getPropertyData());
     res.end();
 });
+app.get('/getEventData', (req, res) => {
+    res.send(Storage.instance.getEventData());
+    res.end();
+});
 var server = https.createServer(options, app).listen(PORT, function() {
     console.log("Running on port: ", PORT);
 });

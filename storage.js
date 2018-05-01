@@ -20,6 +20,20 @@ class Storage {
         //stored in [x][y] of all properties and their non-color data.
         this.propertyData = {};
 
+        this.eventLogLength = 10; //how many events to keep in the list.
+
+        //Stored event data from all events for sorting top and recents.
+        this.eventData = {
+            topTenPayouts: [],
+            recentPayouts: [],
+            yourPayouts: [], //not used due to server limitations
+        
+            topTenPXLTrades: [],
+            topTenETHTrades: [],
+            recentTrades: [],
+            yourTrades: [], //not used due to server limitations
+        };
+
         //0 to 10000, for property data loading
         this.propertyLoadValue = 0;
 
@@ -274,6 +288,10 @@ class Storage {
         return 'Server is loading data, please wait. (' + (this.propertyLoadValue / 100) + '%)';
     }
 
+    getEventData() {
+        return this.eventData;
+    }
+
     insertPropertyImage(xx, yy, RGBArray) {
         let counter = 0;
         for (let y = yy * 10; y < (yy + 1) * 10; y++)
@@ -322,6 +340,37 @@ class Storage {
                 let colors = Func.ContractDataToRGBAArray(log.args.colors);
                 this.forceUpdatePropertyData(id.x, id.y);
                 this.insertPropertyImage(id.x, id.y, colors);
+
+                let last = Func.BigNumberToNumber(log.args.lastUpdate);
+                let reserved = Func.BigNumberToNumber(log.args.becomePublic);
+                let maxEarnings = ((reserved - last) / 30) * 5;
+                let payout = Func.calculateEarnings(last, maxEarnings);
+                let newData = {
+                    x: id.x,
+                    y: id.y,
+                    lastChange: last * 1000,
+                    payout,
+                    maxPayout: maxEarnings,
+                    transaction: log.transactionHash,
+                };
+                this.eventData.recentPayouts.unshift(newData);
+                if (this.eventData.recentPayouts.length > this.eventLogLength)
+                    this.eventData.recentPayouts.pop();
+
+                if (this.eventData.topTenPayouts.length == 0) {
+                    this.eventData.topTenPayouts.unshift(newData);
+                } else {
+                    for (let i = Math.min(this.eventData.topTenPayouts.length, this.eventLogLength) - 1; i >= 0; i--) {
+                        if (payout <= this.eventData.topTenPayouts[i].payout || (i == 0 && payout > this.eventData.topTenPayouts[i].payout)) {
+                            if (payout <= this.eventData.topTenPayouts[i].payout)
+                                this.eventData.topTenPayouts.splice(i + 1, 0, newData);
+                            else
+                                this.eventData.topTenPayouts.splice(i, 0, newData);
+                            this.eventData.topTenPayouts.splice(this.eventLogLength);
+                            return;
+                        }
+                    }
+                }
             });
         });
 
@@ -330,6 +379,58 @@ class Storage {
             this.evHndl[EVENTS.PropertyBought].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, { owner: log.args.newOwner });
+
+
+                let PXLPrice = Func.BigNumberToNumber(log.args.PXLAmount);
+                let ETHPrice = Func.BigNumberToNumber(log.args.ethAmount);
+                let timeSold = Func.BigNumberToNumber(log.args.timestamp);
+                let newData = {
+                    x: id.x,
+                    y: id.y,
+                    PXLPrice,
+                    ETHPrice,
+                    oldOwner: (log.args.oldOwner === owner0 ? 'PixelProperty' : log.args.oldOwner),
+                    newOwner: log.args.newOwner,
+                    timeSold: timeSold * 1000,
+                    transaction: log.transactionHash,
+                };
+                this.eventData.recentTrades.unshift(newData);
+                if (this.eventData.recentTrades.length > this.eventLogLength)
+                    this.eventData.recentTrades.pop();
+
+                if (ETHPrice != 0) {
+                    if (this.eventData.topTenETHTrades.length == 0) {
+                        this.eventData.topTenETHTrades.unshift(newData);
+                    } else {
+                        for (let i = Math.min(this.eventData.topTenETHTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
+                            if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice || (i == 0 && ETHPrice > this.eventData.topTenETHTrades[i].ETHPrice)) {
+                                if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice)
+                                    this.eventData.topTenETHTrades.splice(i + 1, 0, newData);
+                                else
+                                    this.eventData.topTenETHTrades.splice(i, 0, newData);
+                                this.eventData.topTenETHTrades.splice(this.eventLogLength);
+                                return;
+                            }
+                        }
+                    }
+                }
+
+                if (PXLPrice != 0) {
+                    if (this.eventData.topTenPXLTrades.length == 0) {
+                        this.eventData.topTenPXLTrades.unshift(newData);
+                    } else {
+                        for (let i = Math.min(this.eventData.topTenPXLTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
+                            if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice || (i == 0 && PXLPrice > this.eventData.topTenPXLTrades[i].PXLPrice)) {
+                                if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice)
+                                    this.eventData.topTenPXLTrades.splice(i + 1, 0, newData);
+                                else
+                                    this.eventData.topTenPXLTrades.splice(i, 0, newData);
+                                this.eventData.topTenPXLTrades.splice(this.eventLogLength);
+                                return;
+                            }
+                        }
+                    }
+                }
             });
         });
 
