@@ -34,6 +34,12 @@ class Storage {
             yourTrades: [], //not used due to server limitations
         };
 
+        //misc stats gathered. not used yet
+        this.stats = {
+            generatedPXL: 0,
+            propertiesForSale: 0,
+        };
+
         //0 to 10000, for property data loading
         this.propertyLoadValue = 0;
 
@@ -367,7 +373,7 @@ class Storage {
                             else
                                 this.eventData.topTenPayouts.splice(i, 0, newData);
                             this.eventData.topTenPayouts.splice(this.eventLogLength);
-                            return;
+                            break;
                         }
                     }
                 }
@@ -378,7 +384,7 @@ class Storage {
             this.evHndl[EVENTS.PropertyBought] = handle;
             this.evHndl[EVENTS.PropertyBought].watch((error, log) => {
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, { owner: log.args.newOwner });
+                this.updatePropertyData(id.x, id.y, { owner: log.args.newOwner, isForSale: false });
 
 
                 let PXLPrice = Func.BigNumberToNumber(log.args.PXLAmount);

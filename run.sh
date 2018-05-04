@@ -1,1 +1,1 @@
-node . cache reload &> serverout.txt &
+node . cache &> serverout.txt &
