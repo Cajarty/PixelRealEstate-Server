@@ -35,6 +35,8 @@ app.use((req, res, next) => {
     next();
 });
 
+app.use(express.json());
+
 app.get('/getCanvas', (req, res) => {
     res.send(Storage.instance.getImageData());
     res.end();
@@ -55,6 +57,35 @@ app.get('/getPropertyData', (req, res) => {
 app.get('/getEventData', (req, res) => {
     res.send(Storage.instance.getEventData());
     res.end();
+});
+app.post('/setColors', (req, res) => {
+    let x = req.body.x;
+    let y = req.body.y;
+    let data = req.body.data;
+
+    if (x == null || x < 0 || x > 99) {
+        res.send(false);
+        res.end();
+    }
+
+    if (y == null || y < 0 || y > 99) {
+        res.send(false);
+        res.end();
+    }
+
+    if (data == null || Object.keys(data).length !== 400) {
+        res.send(false);
+        res.end();
+    }
+
+    if (Storage.instance.canSimpleUpdatePropertyImage(x, y)) {
+        Storage.instance.insertPropertyImage(x, y, data);
+        res.send(true);
+        res.end();
+    } else {
+        res.send(false);
+        res.end();
+    }
 });
 var server = https.createServer(options, app).listen(PORT, function() {
     console.log("Running on port: ", PORT);

@@ -226,6 +226,7 @@ class Storage {
             PPCPrice: ppcp,
             lastUpdate: Func.BigNumberToNumber(data[3]),
             isInPrivate: data[4],
+            reserved: Func.BigNumberToNumber(data[5]),
         };
         if (this.propertyData[x] == null)
             this.propertyData[x] = {};
@@ -298,6 +299,23 @@ class Storage {
         return this.eventData;
     }
 
+    /*
+    Returns a bool on if we are able to update the 
+    Property Image as a simple user at this time.
+    */
+    canSimpleUpdatePropertyImage(x, y) {
+        if (this.propertyData[x] == null)
+            return false;
+        if (this.propertyData[x][y] == null)
+            return false;
+
+        let lastUpdate = this.propertyData[x][y].lastUpdate;
+        let isInPrivate = this.propertyData[x][y].isInPrivate;
+        let reserved = lastUpdate + ((this.propertyData[x][y].reserved - lastUpdate) * 10);
+
+        return (reserved * 1000) < new Date().getTime();
+    }
+
     insertPropertyImage(xx, yy, RGBArray) {
         let counter = 0;
         for (let y = yy * 10; y < (yy + 1) * 10; y++)
@@ -317,6 +335,7 @@ class Storage {
                 PPCPrice: ppcp,
                 lastUpdate: Func.BigNumberToNumber(data[3]),
                 isInPrivate: data[4],
+                reserved: Func.BigNumberToNumber(data[5]),
             };
             this.updatePropertyData(x, y, update);
         });
