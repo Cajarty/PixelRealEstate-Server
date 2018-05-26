@@ -45,6 +45,7 @@ class Storage {
 
         //timer id for auto image cacheing
         this.cacheImageTimer = null;
+        let cacheBackup = 0; //for backing up images 1 every 100 saves
 
         //ranges from 0 to 10,000
         this.loadValue = 0;
@@ -150,7 +151,6 @@ class Storage {
                     }
                     this.loadingComplete = true;
                 } else {
-                    throw 'No cached canvas image, aborting.';
                     let fakeData = [0, 0, 0, 255];
                     for (let y = 0; y < 1000; y++) {
                         this.pixelData[y] = [];
@@ -257,6 +257,12 @@ class Storage {
             Cache.CacheImage(Cache.PATHS.PNG_STORAGE, temp, (result) => {
                 string += ("Image Cached! " + (new Date()).toString());
             });
+            if (cacheBackup++ >= 100) {
+                Cache.CacheImage({dir: Cache.PATHS.PNG_STORAGE.dir, name: 'image_backup_' + new Date().getTime() + '.png'}, temp, (result) => {
+                    string += ("Image Backed Up! " + (new Date()).toString());
+                });
+                cacheBackup = 0;
+            }
             Cache.CacheFile(Cache.PATHS.DATA_STORAGE, this.propertyData, (result) => {
                 string += ("Properties Cached! " + (new Date()).toString());
             });
