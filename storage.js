@@ -133,7 +133,7 @@ class Storage {
     loadCanvas() {
         //get current block here and store so that the events know where to start looking at logs
         console.info('Loading properties...');
-        if (!flags.RELOAD) {
+        if (flags.RELOAD) {
             let fakeData = [0, 0, 0, 255];
             for (let y = 0; y < 1000; y++) {
                 this.pixelData[y] = [];
@@ -150,7 +150,7 @@ class Storage {
                     }
                     this.loadingComplete = true;
                 } else {
-                    console.info('No cached canvas image, creating a blank one.');
+                    throw 'No cached canvas image, aborting.';
                     let fakeData = [0, 0, 0, 255];
                     for (let y = 0; y < 1000; y++) {
                         this.pixelData[y] = [];
@@ -175,7 +175,8 @@ class Storage {
     }
 
     insertPixelRow(x, y, data) {
-        this.insertPropertyImage(x, y, data);
+        if (data != null)
+            this.insertPropertyImage(x, y, data);
         this.loadValue += 1;
         if (this.loadValue == (x + 1) * 100 && this.loadValue < 10000) {
             console.info('Loading canvas data: ' + (this.loadValue / 100) + '%');

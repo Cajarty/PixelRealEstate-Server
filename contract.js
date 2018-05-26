@@ -425,7 +425,10 @@ class Contract {
     getPropertyColors(x, y, callback) {
         this.PXLPP.deployed().then((i) => {
             return i.getPropertyColors.call(this.toID(x, y)).then((r) => {
-                callback(x, y, Func.ContractDataToRGBAArray(r));
+                if (r[0] == 0 && r[1] == 0 && r[2] == 0 && r[3] == 0 && r[4] == 0)
+                    callback(x, y, null);
+                else
+                    callback(x, y, Func.ContractDataToRGBAArray(r));
             }).catch((e) => {
                 console.error(e);
             });
