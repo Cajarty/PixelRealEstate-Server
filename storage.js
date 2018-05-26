@@ -45,7 +45,7 @@ class Storage {
 
         //timer id for auto image cacheing
         this.cacheImageTimer = null;
-        let cacheBackup = 0; //for backing up images 1 every 100 saves
+        this.cacheBackup = 0; //for backing up images 1 every 100 saves
 
         //ranges from 0 to 10,000
         this.loadValue = 0;
@@ -135,11 +135,11 @@ class Storage {
         //get current block here and store so that the events know where to start looking at logs
         console.info('Loading properties...');
         if (flags.RELOAD) {
-            let fakeData = [0, 0, 0, 255];
+            const fakeData = [0, 0, 0, 255];
             for (let y = 0; y < 1000; y++) {
                 this.pixelData[y] = [];
-                for (let i = 0; i < 1000; i++)
-                    this.pixelData[y].concat(fakeData);
+                for (let i = 0; i < 4000; i++)
+                    this.pixelData[y].push(fakeData[i % 4]);
             }
             this.loadCanvasChunk(0);
         } else {
@@ -151,11 +151,11 @@ class Storage {
                     }
                     this.loadingComplete = true;
                 } else {
-                    let fakeData = [0, 0, 0, 255];
+                    const fakeData = [0, 0, 0, 255];
                     for (let y = 0; y < 1000; y++) {
                         this.pixelData[y] = [];
-                        for (let i = 0; i < 1000; i++)
-                            this.pixelData[y].concat(fakeData);
+                        for (let i = 0; i < 4000; i++)
+                            this.pixelData[y].push(fakeData[i % 4]);
                     }
                     Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
                 }
@@ -257,11 +257,11 @@ class Storage {
             Cache.CacheImage(Cache.PATHS.PNG_STORAGE, temp, (result) => {
                 string += ("Image Cached! " + (new Date()).toString());
             });
-            if (cacheBackup++ >= 100) {
+            if (this.cacheBackup++ >= 100) {
                 Cache.CacheImage({dir: Cache.PATHS.PNG_STORAGE.dir, name: 'image_backup_' + new Date().getTime() + '.png'}, temp, (result) => {
                     string += ("Image Backed Up! " + (new Date()).toString());
                 });
-                cacheBackup = 0;
+                this.cacheBackup = 0;
             }
             Cache.CacheFile(Cache.PATHS.DATA_STORAGE, this.propertyData, (result) => {
                 string += ("Properties Cached! " + (new Date()).toString());
