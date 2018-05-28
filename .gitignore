@@ -64,4 +64,4 @@ typings/
 ssl/
 
 # cache
-/cache/
+/cache

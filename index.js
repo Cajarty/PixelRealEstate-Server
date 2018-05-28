@@ -42,9 +42,13 @@ app.get('/getCanvas', (req, res) => {
     res.end();
 });
 app.get('/getImage.png', (req, res) => {
-    res.writeHead(200, { 'Content-Type': 'image/png' });
-    let img = fs.readFileSync('./cache/image.png');
-    res.end(img, 'binary');
+    if (!Storage.instance.loadingComplete) {
+        res.status(190).end();
+    } else {
+        res.writeHead(200, { 'Content-Type': 'image/png' });
+        let img = fs.readFileSync('./cache/image.png');
+        res.end(img, 'binary');
+    }
 });
 app.get('/getPixelData', (req, res) => {
     res.send(Storage.instance.pixelData);
