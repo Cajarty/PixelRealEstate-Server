@@ -325,10 +325,15 @@ class Storage {
 
     insertPropertyImage(xx, yy, RGBArray) {
         let counter = 0;
-        for (let y = yy * 10; y < (yy + 1) * 10; y++)
-            for (let x = xx * 10; x < (xx + 1) * 10; x++)
-                for (let i = 0; i < 4; i++)
+        for (let y = yy * 10; y < (yy + 1) * 10; y++) {
+            for (let x = xx * 10; x < (xx + 1) * 10; x++) {
+                for (let i = 0; i < 3; i++){
                     this.pixelData[y][x * 4 + i] = RGBArray[counter++];
+                }
+                counter++
+                this.pixelData[y][x * 4 + 3] = 255;
+            }
+        }
     }
 
     forceUpdatePropertyData(x, y) {
