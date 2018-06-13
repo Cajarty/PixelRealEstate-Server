@@ -3,6 +3,7 @@ const contract = require("truffle-contract");
 const path = require('path');
 const VREPath = require(path.join(__dirname, 'build/contracts/VirtualRealEstate.json'));
 const PXLPPPath = require(path.join(__dirname, 'build/contracts/PXLProperty.json'));
+const PXLPayoutPath = require(path.join(__dirname, 'build/contracts/PXLProperty.json'));
 const Func = require('./functions.js');
 const Timer = require('./timer.js');
 
@@ -37,16 +38,19 @@ class Contract {
     constructor() {
         this.VRE = null; //DApp contract reference
         this.PXLPP = null; //Storage contract reference
+        this.PXLPayout = null;//referral and giveaway contract
 
         // Setup RPC connection   
         // 52.169.42.101:30303
-        let VREProvider = new Web3.providers.HttpProvider("http://127.0.0.1:8545"); //window.web3.currentProvider
-
+        this.provider = new Web3.providers.HttpProvider("http://127.0.0.1:8545"); //window.web3.currentProvider
+        this.web3 = new Web3(this.provider);
         // Read JSON and attach RPC connection (Provider)
         this.VRE = contract(VREPath);
-        this.VRE.setProvider(VREProvider);
+        this.VRE.setProvider(this.provider);
         this.PXLPP = contract(PXLPPPath);
-        this.PXLPP.setProvider(VREProvider);
+        this.PXLPP.setProvider(this.provider);
+        this.PXLPayout = contract(PXLPayoutPath);
+        this.PXLPayout.setProvider(this.provider);
     }
 
     // ---------------------------------------------------------------------------------------------------------
@@ -510,5 +514,7 @@ class Contract {
     // ---------------------------------------------------------------------------------------------------------
 }
 
-module.exports.instance = new Contract();
+const instance = new Contract();
+module.exports.instance = instance;
+module.exports.web3 = instance.web3;
 module.exports.EVENTS = EVENTS;
