@@ -1,3 +1,4 @@
+'use strict';
 // Include it and extract some methods for convenience
 const contract = require("truffle-contract");
 const CtrWrp = require('./contract.js');
@@ -9,6 +10,7 @@ const https = require('https');
 const helmet = require('helmet');
 const express = require('express');
 const flags = require('./flags.js');
+const forwarded = require('forwarded');
 
 if (flags.ENV_DEV) {
     console.warn("----------------- CAUTION -----------------");
@@ -22,6 +24,10 @@ const options = {
     requestCert: false,
     rejectUnauthorized: false
 };
+
+const getIP = (req) => {
+    return forwarded(req, req.headers).ip;
+}
 
 var app = express();
 const PORT = 6500;
@@ -49,6 +55,14 @@ app.get('/getImage.png', (req, res) => {
         let img = fs.readFileSync('./cache/image.png');
         res.end(img, 'binary');
     }
+});
+app.get('/getIP', (req, res) => {
+    let ips = forwarded(req);
+    ips.forEach((ip, i) => {
+        ips[i] = ip.replace(/::.*:/gm, '');
+    })
+    res.send({ips});
+    res.end();
 });
 app.get('/getPixelData', (req, res) => {
     res.send(Storage.instance.pixelData);
