@@ -373,6 +373,7 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (handle) => {
             this.evHndl[EVENTS.PropertyColorUpdate] = handle;
             this.evHndl[EVENTS.PropertyColorUpdate].watch((error, log) => {
+                console.info(error, log);
                 if (error != null) {
                     console.error(error);
                     return;
