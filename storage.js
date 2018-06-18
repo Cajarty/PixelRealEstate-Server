@@ -373,6 +373,10 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (handle) => {
             this.evHndl[EVENTS.PropertyColorUpdate] = handle;
             this.evHndl[EVENTS.PropertyColorUpdate].watch((error, log) => {
+                if (error != null) {
+                    console.error(error);
+                    return;
+                }
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 let colors = Func.ContractDataToRGBAArray(log.args.colors);
                 this.forceUpdatePropertyData(id.x, id.y);
@@ -414,6 +418,10 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.PropertyBought, {}, (handle) => {
             this.evHndl[EVENTS.PropertyBought] = handle;
             this.evHndl[EVENTS.PropertyBought].watch((error, log) => {
+                if (error != null) {
+                    console.error(error);
+                    return;
+                }
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, { owner: log.args.newOwner, isForSale: false });
 
@@ -474,6 +482,10 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.PropertySetForSale, {}, (handle) => {
             this.evHndl[EVENTS.PropertySetForSale] = handle;
             this.evHndl[EVENTS.PropertySetForSale].watch((error, log) => {
+                if (error != null) {
+                    console.error(error);
+                    return;
+                }
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, {isForSale: true, PPCPrice: Func.BigNumberToNumber(log.args.forSalePrice)});
             });
@@ -482,6 +494,10 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.DelistProperty, {}, (handle) => {
             this.evHndl[EVENTS.DelistProperty] = handle;
             this.evHndl[EVENTS.DelistProperty].watch((error, log) => {
+                if (error != null) {
+                    console.error(error);
+                    return;
+                }
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, { isForSale: false, PPCPrice: 0 });
             });
@@ -490,7 +506,10 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPublic, {}, (handle) => {
             this.evHndl[EVENTS.SetPropertyPublic] = handle;
             this.evHndl[EVENTS.SetPropertyPublic].watch((error, log) => {
-                console.info(error, log);
+                if (error != null) {
+                    console.error(error);
+                    return;
+                }
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, {isInPrivate: false, becomePublic: 0});
             });
@@ -499,7 +518,10 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPrivate, {}, (handle) => {
             this.evHndl[EVENTS.SetPropertyPrivate] = handle;
             this.evHndl[EVENTS.SetPropertyPrivate].watch((error, log) => {
-                console.info(error, log);
+                if (error != null) {
+                    console.error(error);
+                    return;
+                }
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, {isInPrivate: true, becomePublic: Func.BigNumberToNumber(log.args.numMinutesPrivate)});
             });
@@ -508,6 +530,10 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.Bid, {}, (handle) => {
             this.evHndl[EVENTS.Bid] = handle;
             this.evHndl[EVENTS.Bid].watch((error, log) => {
+                if (error != null) {
+                    console.error(error);
+                    return;
+                }
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 let bid = Func.BigNumberToNumber(log.args.bid);
                 let timestamp = Func.BigNumberToNumber(log.args.timestamp);
