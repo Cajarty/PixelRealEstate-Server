@@ -490,7 +490,7 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPublic, {}, (handle) => {
             this.evHndl[EVENTS.SetPropertyPublic] = handle;
             this.evHndl[EVENTS.SetPropertyPublic].watch((error, log) => {
-                //throw 'Need to update the correct data here.';
+                console.info(error, log);
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, {isInPrivate: false, becomePublic: 0});
             });
@@ -499,7 +499,7 @@ class Storage {
         ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPrivate, {}, (handle) => {
             this.evHndl[EVENTS.SetPropertyPrivate] = handle;
             this.evHndl[EVENTS.SetPropertyPrivate].watch((error, log) => {
-                //throw 'Need to update the correct data here.';
+                console.info(error, log);
                 let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
                 this.updatePropertyData(id.x, id.y, {isInPrivate: true, becomePublic: Func.BigNumberToNumber(log.args.numMinutesPrivate)});
             });
