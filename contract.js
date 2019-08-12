@@ -1,3 +1,4 @@
+const ethers = require('ethers');
 const Web3 = require('web3');
 const contract = require("truffle-contract");
 const path = require('path');
@@ -5,6 +6,7 @@ const VREPath = require(path.join(__dirname, 'build/contracts/VirtualRealEstate.
 const PXLPPPath = require(path.join(__dirname, 'build/contracts/PXLProperty.json'));
 const Func = require('./functions.js');
 const Timer = require('./timer.js');
+const CTRDATA = require('./contracts/ContractData');
 
 const PROPERTIES_WIDTH = 100;
 
@@ -40,13 +42,15 @@ class Contract {
 
         // Setup RPC connection   
         // 52.169.42.101:30303
-        let VREProvider = new Web3.providers.HttpProvider("http://127.0.0.1:8545"); //window.web3.currentProvider
+        this.provider = ethers.getDefaultProvider();//new Web3.providers.HttpProvider("http://127.0.0.1:8545"); //window.web3.currentProvider
 
         // Read JSON and attach RPC connection (Provider)
-        this.VRE = contract(VREPath);
-        this.VRE.setProvider(VREProvider);
-        this.PXLPP = contract(PXLPPPath);
-        this.PXLPP.setProvider(VREProvider);
+        // this.VRE = contract(VREPath);
+        // this.VRE.setProvider(VREProvider);
+        // this.PXLPP = contract(PXLPPPath);
+        // this.PXLPP.setProvider(VREProvider);
+        this.getVREContract(() => {});
+        this.getPXLContract(() => {});
     }
 
     // ---------------------------------------------------------------------------------------------------------
@@ -54,6 +58,20 @@ class Contract {
     // ---------------------------------       SETUP & MISC       ----------------------------------------------
     // ---------------------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------------------
+
+    getVREContract(callback/*(contract)*/) {
+        if (!this.VRE) {
+            this.VRE = new ethers.Contract(CTRDATA.VRE_Address, CTRDATA.VRE_ABI, this.provider);
+        }
+        return callback(this.VRE);
+    }
+
+    getPXLContract(callback/*(contract)*/) {
+        if (!this.PXLPP) {
+            this.PXLPP = new ethers.Contract(CTRDATA.PXL_Address, CTRDATA.PXL_ABI, this.provider);
+        }
+        return callback(this.PXLPP);
+    }
 
     getAccounts() {
         window.web3.eth.getAccounts((err, accs) => {
@@ -157,42 +175,32 @@ class Contract {
     watchEventLogs(event, params, callback) {
         let filter = { fromBlock: 0, toBlock: 'latest' };
 
-        // VRE Dapp Events
-        this.VRE.deployed().then((i) => {
-            switch (event) {
-                case EVENTS.PropertyBought:
-                    return callback(i.PropertyBought(params, filter));
-                case EVENTS.PropertyColorUpdate:
-                    return callback(i.PropertyColorUpdate(params, filter));
-                case EVENTS.SetUserHoverText:
-                    return callback(i.SetUserHoverText(params, filter));
-                case EVENTS.SetUserSetLink:
-                    return callback(i.SetUserSetLink(params, filter));
-                case EVENTS.PropertySetForSale:
-                    return callback(i.PropertySetForSale(params, filter));
-                case EVENTS.DelistProperty:
-                    return callback(i.DelistProperty(params, filter));
-                case EVENTS.SetPropertyPublic:
-                    return callback(i.SetPropertyPublic(params, filter));
-                case EVENTS.SetPropertyPrivate:
-                    return callback(i.SetPropertyPrivate(params, filter));
-                case EVENTS.Bid:
-                    return callback(i.Bid(params, filter));
-            }
-        }).catch((e) => {
-            console.error(e);
-        });
+        switch (event) {
+            case EVENTS.PropertyBought:
+            case EVENTS.PropertyColorUpdate:
+            case EVENTS.SetUserHoverText:
+            case EVENTS.SetUserSetLink:
+            case EVENTS.PropertySetForSale:
+            case EVENTS.DelistProperty:
+            case EVENTS.SetPropertyPublic:
+            case EVENTS.SetPropertyPrivate:
+            case EVENTS.Bid:
+                return this._watchVREEventLogs(event, callback);
+            case EVENTS.Transfer:
+            case EVENTS.Approval:
+                return this._watchPXLEventLogs(event, callback);
+        }
+    }
 
-        // ERC20 PXL Events
-        this.PXLPP.deployed().then((i) => {
-            switch (event) {
-                case EVENTS.Transfer:
-                    return callback(i.Transfer(params, filter));
-                case EVENTS.Approval:
-                    return callback(i.Approval(params, filter));
-            }
-        }).catch((e) => {
-            console.error(e);
+    _watchVREEventLogs(event, callback) {
+        this.getVREContract((i) => {
+            i.on(event, callback);
+        });
+    }
+
+    _watchPXLEventLogs(event, callback) {
+        this.getPXLContract((i) => {
+            i.on(event, callback);
         });
     }
 
@@ -423,8 +431,8 @@ class Contract {
     }
 
     getPropertyColors(x, y, callback) {
-        this.PXLPP.deployed().then((i) => {
-            return i.getPropertyColors.call(this.toID(x, y)).then((r) => {
+        this.getPXLContract((i) => {
+            return i.getPropertyColors(this.toID(x, y)).then((r) => {
                 if (r[0] == 0 && r[1] == 0 && r[2] == 0 && r[3] == 0 && r[4] == 0)
                     callback(x, y, null);
                 else
@@ -432,21 +440,17 @@ class Contract {
             }).catch((e) => {
                 console.error(e);
             });
-        }).catch((e) => {
-            console.log(e);
         });
     }
 
     getPropertyData(x, y, callback) {
         //returns address, price, renter, rent length, rentedUntil, rentPrice
-        this.VRE.deployed().then((i) => {
-            i.getPropertyData.call(this.toID(x, y)).then((r) => {
+        this.getVREContract((i) => {
+            i.getPropertyData(this.toID(x, y)).then((r) => {
                 return callback(x, y, r);
             }).catch((e) => {
                 console.error(e);
             });
-        }).catch((e) => {
-            console.log(e);
         });
     }
 

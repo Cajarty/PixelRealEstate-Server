@@ -216,7 +216,7 @@ class Storage {
     Used for organizing storage from the loadData call for property data.
     */
     storePropertyData(x, y, data) {
-        let ethp = Func.BigNumberToNumber(data[1]);
+        let ethp = Func.BigNumberToString(data[1]);
         let ppcp = Func.BigNumberToNumber(data[2]);
         let obj = {
             x: x,

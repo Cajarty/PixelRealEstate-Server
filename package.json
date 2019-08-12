@@ -21,6 +21,7 @@
         "big-integer": "^1.6.27",
         "bignumber.js": "^5.0.0",
         "cors": "^2.8.4",
+        "ethers": "^4.0.33",
         "express": "^4.16.3",
         "firebase": "^5.0.4",
         "forwarded": "^0.1.2",

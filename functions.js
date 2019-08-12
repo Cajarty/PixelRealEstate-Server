@@ -161,6 +161,10 @@ const BigNumberToNumber = (big) => {
     return big.toNumber();
 }
 
+const BigNumberToString = (big) => {
+    return big.toString();
+}
+
 const NumberToBigNumber = (num) => {
     return BigNumber(num);
 }
@@ -316,4 +320,6 @@ module.exports.RGBToBinary = RGBToBinary;
 module.exports.BinaryToRGB = BinaryToRGB;
 
 module.exports.BigNumberToNumber = BigNumberToNumber;
+module.exports.NumberToBigNumber = NumberToBigNumber;
+module.exports.BigNumberToString = BigNumberToString;
 module.exports.calculateEarnings = calculateEarnings;
