@@ -173,6 +173,7 @@ class Contract {
     Requests all events of event type EVENT.
     */
     watchEventLogs(event, params, callback) {
+        event = event.toLowerCase();
         let filter = { fromBlock: 0, toBlock: 'latest' };
 
         switch (event) {
@@ -329,7 +330,7 @@ class Contract {
 
     setColors(x, y, data, PPT, callback) {
         this.VRE.deployed().then((i) => {
-            return i.setColors(this.toID(x, y), Func.RGBArrayToContractData(data), PPT, { from: this.account });
+            return i.setColors(this.toID(x, y), Func.RGBArrayToContractData(data), PPT );
         }).then(() => {
             callback(true);
             this.sendResults(LISTENERS.Alert, { result: true, message: "Property " + (x + 1) + "x" + (y + 1) + " pixels changed." });
