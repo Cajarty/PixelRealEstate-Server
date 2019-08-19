@@ -370,182 +370,132 @@ class Storage {
     }
 
     listenForEvents() {
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (handle) => {
-            this.evHndl[EVENTS.PropertyColorUpdate] = handle;
-            this.evHndl[EVENTS.PropertyColorUpdate].watch((error, log) => {
-                console.info(error, log);
-                if (error != null) {
-                    console.error(error);
-                    return;
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (property, colors, lastUpdate, lastUpdaterPayee, becomePublic) => {
+            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+            let colors = Func.ContractDataToRGBAArray(colors);
+            this.forceUpdatePropertyData(id.x, id.y);
+            this.insertPropertyImage(id.x, id.y, colors);
+
+            let last = Func.BigNumberToNumber(lastUpdate);
+            let reserved = Func.BigNumberToNumber(becomePublic);
+            let maxEarnings = ((reserved - last) / 30) * 5;
+            let payout = Func.calculateEarnings(last, maxEarnings);
+            let newData = {
+                x: id.x,
+                y: id.y,
+                lastChange: last * 1000,
+                payout,
+                maxPayout: maxEarnings,
+                transaction: undefined //log.transactionHash,
+            };
+            this.eventData.recentPayouts.unshift(newData);
+            if (this.eventData.recentPayouts.length > this.eventLogLength)
+                this.eventData.recentPayouts.pop();
+
+            if (this.eventData.topTenPayouts.length == 0) {
+                this.eventData.topTenPayouts.unshift(newData);
+            } else {
+                for (let i = Math.min(this.eventData.topTenPayouts.length, this.eventLogLength) - 1; i >= 0; i--) {
+                    if (payout <= this.eventData.topTenPayouts[i].payout || (i == 0 && payout > this.eventData.topTenPayouts[i].payout)) {
+                        if (payout <= this.eventData.topTenPayouts[i].payout)
+                            this.eventData.topTenPayouts.splice(i + 1, 0, newData);
+                        else
+                            this.eventData.topTenPayouts.splice(i, 0, newData);
+                        this.eventData.topTenPayouts.splice(this.eventLogLength);
+                        break;
+                    }
                 }
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                let colors = Func.ContractDataToRGBAArray(log.args.colors);
-                this.forceUpdatePropertyData(id.x, id.y);
-                this.insertPropertyImage(id.x, id.y, colors);
+            }
+        });
 
-                let last = Func.BigNumberToNumber(log.args.lastUpdate);
-                let reserved = Func.BigNumberToNumber(log.args.becomePublic);
-                let maxEarnings = ((reserved - last) / 30) * 5;
-                let payout = Func.calculateEarnings(last, maxEarnings);
-                let newData = {
-                    x: id.x,
-                    y: id.y,
-                    lastChange: last * 1000,
-                    payout,
-                    maxPayout: maxEarnings,
-                    transaction: log.transactionHash,
-                };
-                this.eventData.recentPayouts.unshift(newData);
-                if (this.eventData.recentPayouts.length > this.eventLogLength)
-                    this.eventData.recentPayouts.pop();
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertyBought, {}, (property, newOwner, ethAmount, PXLAmount, timestamp, oldOwner) => {
+            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+            this.updatePropertyData(id.x, id.y, { owner: newOwner, isForSale: false });
 
-                if (this.eventData.topTenPayouts.length == 0) {
-                    this.eventData.topTenPayouts.unshift(newData);
+
+            let PXLPrice = Func.BigNumberToNumber(PXLAmount);
+            let ETHPrice = Func.BigNumberToNumber(ethAmount);
+            let timeSold = Func.BigNumberToNumber(timestamp);
+            let newData = {
+                x: id.x,
+                y: id.y,
+                PXLPrice,
+                ETHPrice,
+                oldOwner: (oldOwner === owner0 ? 'PixelProperty' : oldOwner),
+                newOwner: newOwner,
+                timeSold: timeSold * 1000,
+                transaction: undefined //log.transactionHash,
+            };
+            this.eventData.recentTrades.unshift(newData);
+            if (this.eventData.recentTrades.length > this.eventLogLength)
+                this.eventData.recentTrades.pop();
+
+            if (ETHPrice != 0) {
+                if (this.eventData.topTenETHTrades.length == 0) {
+                    this.eventData.topTenETHTrades.unshift(newData);
                 } else {
-                    for (let i = Math.min(this.eventData.topTenPayouts.length, this.eventLogLength) - 1; i >= 0; i--) {
-                        if (payout <= this.eventData.topTenPayouts[i].payout || (i == 0 && payout > this.eventData.topTenPayouts[i].payout)) {
-                            if (payout <= this.eventData.topTenPayouts[i].payout)
-                                this.eventData.topTenPayouts.splice(i + 1, 0, newData);
+                    for (let i = Math.min(this.eventData.topTenETHTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
+                        if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice || (i == 0 && ETHPrice > this.eventData.topTenETHTrades[i].ETHPrice)) {
+                            if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice)
+                                this.eventData.topTenETHTrades.splice(i + 1, 0, newData);
                             else
-                                this.eventData.topTenPayouts.splice(i, 0, newData);
-                            this.eventData.topTenPayouts.splice(this.eventLogLength);
-                            break;
+                                this.eventData.topTenETHTrades.splice(i, 0, newData);
+                            this.eventData.topTenETHTrades.splice(this.eventLogLength);
+                            return;
                         }
                     }
                 }
-            });
-        });
+            }
 
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertyBought, {}, (handle) => {
-            this.evHndl[EVENTS.PropertyBought] = handle;
-            this.evHndl[EVENTS.PropertyBought].watch((error, log) => {
-                if (error != null) {
-                    console.error(error);
-                    return;
-                }
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, { owner: log.args.newOwner, isForSale: false });
-
-
-                let PXLPrice = Func.BigNumberToNumber(log.args.PXLAmount);
-                let ETHPrice = Func.BigNumberToNumber(log.args.ethAmount);
-                let timeSold = Func.BigNumberToNumber(log.args.timestamp);
-                let newData = {
-                    x: id.x,
-                    y: id.y,
-                    PXLPrice,
-                    ETHPrice,
-                    oldOwner: (log.args.oldOwner === owner0 ? 'PixelProperty' : log.args.oldOwner),
-                    newOwner: log.args.newOwner,
-                    timeSold: timeSold * 1000,
-                    transaction: log.transactionHash,
-                };
-                this.eventData.recentTrades.unshift(newData);
-                if (this.eventData.recentTrades.length > this.eventLogLength)
-                    this.eventData.recentTrades.pop();
-
-                if (ETHPrice != 0) {
-                    if (this.eventData.topTenETHTrades.length == 0) {
-                        this.eventData.topTenETHTrades.unshift(newData);
-                    } else {
-                        for (let i = Math.min(this.eventData.topTenETHTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
-                            if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice || (i == 0 && ETHPrice > this.eventData.topTenETHTrades[i].ETHPrice)) {
-                                if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice)
-                                    this.eventData.topTenETHTrades.splice(i + 1, 0, newData);
-                                else
-                                    this.eventData.topTenETHTrades.splice(i, 0, newData);
-                                this.eventData.topTenETHTrades.splice(this.eventLogLength);
-                                return;
-                            }
+            if (PXLPrice != 0) {
+                if (this.eventData.topTenPXLTrades.length == 0) {
+                    this.eventData.topTenPXLTrades.unshift(newData);
+                } else {
+                    for (let i = Math.min(this.eventData.topTenPXLTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
+                        if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice || (i == 0 && PXLPrice > this.eventData.topTenPXLTrades[i].PXLPrice)) {
+                            if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice)
+                                this.eventData.topTenPXLTrades.splice(i + 1, 0, newData);
+                            else
+                                this.eventData.topTenPXLTrades.splice(i, 0, newData);
+                            this.eventData.topTenPXLTrades.splice(this.eventLogLength);
+                            return;
                         }
                     }
                 }
-
-                if (PXLPrice != 0) {
-                    if (this.eventData.topTenPXLTrades.length == 0) {
-                        this.eventData.topTenPXLTrades.unshift(newData);
-                    } else {
-                        for (let i = Math.min(this.eventData.topTenPXLTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
-                            if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice || (i == 0 && PXLPrice > this.eventData.topTenPXLTrades[i].PXLPrice)) {
-                                if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice)
-                                    this.eventData.topTenPXLTrades.splice(i + 1, 0, newData);
-                                else
-                                    this.eventData.topTenPXLTrades.splice(i, 0, newData);
-                                this.eventData.topTenPXLTrades.splice(this.eventLogLength);
-                                return;
-                            }
-                        }
-                    }
-                }
-            });
+            }
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertySetForSale, {}, (handle) => {
-            this.evHndl[EVENTS.PropertySetForSale] = handle;
-            this.evHndl[EVENTS.PropertySetForSale].watch((error, log) => {
-                if (error != null) {
-                    console.error(error);
-                    return;
-                }
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, {isForSale: true, PPCPrice: Func.BigNumberToNumber(log.args.forSalePrice)});
-            });
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertySetForSale, {}, (property, forSalePrice) => {
+            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+            this.updatePropertyData(id.x, id.y, {isForSale: true, PPCPrice: Func.BigNumberToNumber(forSalePrice)});
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.DelistProperty, {}, (handle) => {
-            this.evHndl[EVENTS.DelistProperty] = handle;
-            this.evHndl[EVENTS.DelistProperty].watch((error, log) => {
-                if (error != null) {
-                    console.error(error);
-                    return;
-                }
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
+        ctrWrp.instance.watchEventLogs(EVENTS.DelistProperty, {}, (property) => {
+                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
                 this.updatePropertyData(id.x, id.y, { isForSale: false, PPCPrice: 0 });
-            });
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPublic, {}, (handle) => {
-            this.evHndl[EVENTS.SetPropertyPublic] = handle;
-            this.evHndl[EVENTS.SetPropertyPublic].watch((error, log) => {
-                if (error != null) {
-                    console.error(error);
-                    return;
-                }
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, {isInPrivate: false, becomePublic: 0});
-            });
+        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPublic, {}, (property) => {
+            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+            this.updatePropertyData(id.x, id.y, {isInPrivate: false, becomePublic: 0});
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPrivate, {}, (handle) => {
-            this.evHndl[EVENTS.SetPropertyPrivate] = handle;
-            this.evHndl[EVENTS.SetPropertyPrivate].watch((error, log) => {
-                if (error != null) {
-                    console.error(error);
-                    return;
-                }
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                this.updatePropertyData(id.x, id.y, {isInPrivate: true, becomePublic: Func.BigNumberToNumber(log.args.numMinutesPrivate)});
-            });
+        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPrivate, {}, (property, numHoursPrivate) => {
+            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+            this.updatePropertyData(id.x, id.y, {isInPrivate: true, becomePublic: Func.BigNumberToNumber(numHoursPrivate)});
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.Bid, {}, (handle) => {
-            this.evHndl[EVENTS.Bid] = handle;
-            this.evHndl[EVENTS.Bid].watch((error, log) => {
-                if (error != null) {
-                    console.error(error);
-                    return;
-                }
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(log.args.property));
-                let bid = Func.BigNumberToNumber(log.args.bid);
-                let timestamp = Func.BigNumberToNumber(log.args.timestamp);
-                let x = id.x,
-                    y = id.y;
-                if (this.bids[x] == null)
-                    this.bids[x] = {};
-                if (this.bids[x][y] == null)
-                    this.bids[x][y] = {};
-                this.bids[x][y][timestamp] = bid;
-            });
+        ctrWrp.instance.watchEventLogs(EVENTS.Bid, {}, (property, bid, timestamp) => {
+            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+            bid = Func.BigNumberToNumber(bid);
+            timestamp = Func.BigNumberToNumber(timestamp);
+            let x = id.x,
+                y = id.y;
+            if (this.bids[x] == null)
+                this.bids[x] = {};
+            if (this.bids[x][y] == null)
+                this.bids[x][y] = {};
+            this.bids[x][y][timestamp] = bid;
         });
     }
 

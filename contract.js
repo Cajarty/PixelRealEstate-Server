@@ -173,7 +173,7 @@ class Contract {
     Requests all events of event type EVENT.
     */
     watchEventLogs(event, params, callback) {
-        event = event.toLowerCase();
+        event = event;
         let filter = { fromBlock: 0, toBlock: 'latest' };
 
         switch (event) {
