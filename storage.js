@@ -372,7 +372,7 @@ class Storage {
     listenForEvents() {
         ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (property, colors, lastUpdate, lastUpdaterPayee, becomePublic) => {
             let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
-            let colors = Func.ContractDataToRGBAArray(colors);
+            colors = Func.ContractDataToRGBAArray(colors);
             this.forceUpdatePropertyData(id.x, id.y);
             this.insertPropertyImage(id.x, id.y, colors);
 
