@@ -370,7 +370,7 @@ class Storage {
     }
 
     listenForEvents() {
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (property, colors, lastUpdate, lastUpdaterPayee, becomePublic) => {
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (property, colors, lastUpdate, lastUpdaterPayee, becomePublic, awardedAmount, event) => {
             let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
             colors = Func.ContractDataToRGBAArray(colors);
             this.forceUpdatePropertyData(id.x, id.y);
@@ -386,7 +386,7 @@ class Storage {
                 lastChange: last * 1000,
                 payout,
                 maxPayout: maxEarnings,
-                transaction: undefined //log.transactionHash,
+                transaction: event.transactionHash,
             };
             this.eventData.recentPayouts.unshift(newData);
             if (this.eventData.recentPayouts.length > this.eventLogLength)
@@ -408,7 +408,7 @@ class Storage {
             }
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertyBought, {}, (property, newOwner, ethAmount, PXLAmount, timestamp, oldOwner) => {
+        ctrWrp.instance.watchEventLogs(EVENTS.PropertyBought, {}, (property, newOwner, ethAmount, PXLAmount, timestamp, oldOwner, event) => {
             let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
             this.updatePropertyData(id.x, id.y, { owner: newOwner, isForSale: false });
 
@@ -424,7 +424,7 @@ class Storage {
                 oldOwner: (oldOwner === owner0 ? 'PixelProperty' : oldOwner),
                 newOwner: newOwner,
                 timeSold: timeSold * 1000,
-                transaction: undefined //log.transactionHash,
+                transaction: event.transactionHash,
             };
             this.eventData.recentTrades.unshift(newData);
             if (this.eventData.recentTrades.length > this.eventLogLength)
