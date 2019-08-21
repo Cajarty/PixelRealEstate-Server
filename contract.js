@@ -173,7 +173,6 @@ class Contract {
     Requests all events of event type EVENT.
     */
     watchEventLogs(event, params, callback) {
-        event = event.toLowerCase(); // not convinced this matters yet. Confirm Jaegar?
         let filter = { fromBlock: 0, toBlock: 'latest' };
 
         switch (event) {
@@ -194,13 +193,13 @@ class Contract {
     }
 
     _watchVREEventLogs(event, callback) {
-        this.getVREContract((i) => {
+        return this.getVREContract((i) => {
             i.on(event, callback);
         });
     }
 
     _watchPXLEventLogs(event, callback) {
-        this.getPXLContract((i) => {
+        return this.getPXLContract((i) => {
             i.on(event, callback);
         });
     }

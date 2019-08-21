@@ -158,7 +158,12 @@ const HexToString = function(hex) {
 };
 
 const BigNumberToNumber = (big) => {
-    return big.toNumber();
+    if (typeof big === "number")
+        return big;
+    if (big.lt(Number.MAX_SAFE_INTEGER))
+        return big.toNumber();
+    else
+        return big.toString();
 }
 
 const BigNumberToString = (big) => {
