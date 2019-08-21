@@ -19,8 +19,9 @@ if (flags.ENV_DEV) {
 }
 
 const options = {
-    key: (flags.ENV_DEV ? fs.readFileSync('./ssl/ssl.key') : fs.readFileSync('./ssl/prod/ssl.key')),
-    cert: (flags.ENV_DEV ? fs.readFileSync('./ssl/ssl.crt') : fs.readFileSync('./ssl/prod/ssl.crt')),
+    key: (flags.ENV_DEV ? fs.readFileSync('./ssl/ssl.key') : fs.readFileSync('./ssl/prod/ssl.pem')),
+    cert: (flags.ENV_DEV ? fs.readFileSync('./ssl/ssl.crt') : fs.readFileSync('./ssl/prod/ssl.pem')),
+    ca: (flags.ENV_DEV ? fs.readFileSync('./ssl/ssl.crt') : fs.readFileSync('./ssl/prod/ssl.pem')),
     requestCert: false,
     rejectUnauthorized: false
 };
