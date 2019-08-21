@@ -9,10 +9,10 @@ let COVER_IMAGE = null;
 const PATHS = {
     PNG_STORAGE: { dir: "./cache/", name: "image.png" },
     DATA_STORAGE: { dir: "./cache/", name: "properties.json" },
-    PORTFOLIO_STORAGE: { dir: "../../img/", name: "canvas.png" },
+    PORTFOLIO_STORAGE: { dir: "./img/", name: "canvas.png" },
     CANVAS_STORAGE_DEV: { dir: "../PixelRealEstate/public/assets/canvas/", name: "canvas.png" },
     CANVAS_STORAGE: { dir: "../assets/canvas/", name: "canvas.png" },
-    CANVAS_STORAGE_PORTFOLIO: { dir: "../../img/", name: "canvas.png" },
+    CANVAS_STORAGE_PORTFOLIO: { dir: "./img/", name: "canvas.png" },
     CANVAS_DATA_STORAGE_DEV: { dir: "../PixelRealEstate/public/assets/canvas/", name: "properties.json" },
     CANVAS_DATA_STORAGE: { dir: "../assets/canvas/", name: "properties.json" },
     BOT_IMAGES: { dir: "./BotImages/", name: "" },
