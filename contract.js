@@ -7,6 +7,7 @@ const PXLPPPath = require(path.join(__dirname, 'build/contracts/PXLProperty.json
 const Func = require('./functions.js');
 const Timer = require('./timer.js');
 const CTRDATA = require('./contracts/ContractData');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const PROPERTIES_WIDTH = 100;
 
@@ -42,7 +43,10 @@ class Contract {
 
         // Setup RPC connection   
         // 52.169.42.101:30303
-        this.provider = ethers.getDefaultProvider();//new Web3.providers.HttpProvider("http://127.0.0.1:8545"); //window.web3.currentProvider
+        this.provider = new ethers.providers.Web3Provider(new HDWalletProvider({
+            mnemonic: 'acid invest endorse drift congress middle lonely busy paddle another brain glue', // Throwaway 0-eth dev address
+            providerOrUrl: 'https://mainnet.infura.io/v3/3c47309cfc91474082e955b272e091ab', // API key used with that 100k daily limit
+        }));
 
         // Read JSON and attach RPC connection (Provider)
         // this.VRE = contract(VREPath);
@@ -61,14 +65,14 @@ class Contract {
 
     getVREContract(callback/*(contract)*/) {
         if (!this.VRE) {
-            this.VRE = new ethers.Contract(CTRDATA.VRE_Address, CTRDATA.VRE_ABI, this.provider);
+            this.VRE = new ethers.Contract(CTRDATA.VRE_Mainnet_Address, CTRDATA.VRE_Mainnet_ABI, this.provider);
         }
         return callback(this.VRE);
     }
 
     getPXLContract(callback/*(contract)*/) {
         if (!this.PXLPP) {
-            this.PXLPP = new ethers.Contract(CTRDATA.PXL_Address, CTRDATA.PXL_ABI, this.provider);
+            this.PXLPP = new ethers.Contract(CTRDATA.PXL_Mainnet_Address, CTRDATA.PXL_Mainnet_ABI, this.provider);
         }
         return callback(this.PXLPP);
     }
