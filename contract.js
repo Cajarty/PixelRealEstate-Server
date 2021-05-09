@@ -73,56 +73,6 @@ class Contract {
         return callback(this.PXLPP);
     }
 
-    getAccounts() {
-        window.web3.eth.getAccounts((err, accs) => {
-            if (err != null) {
-                if (GFD.getData('advancedMode')) {
-                    this.sendResults(LISTENERS.Error, { errorId: 1, errorType: ERROR_TYPE.Error, message: "In order to fully interact with the client, it is required to have the MetaMask.io web-plugin installed. MetaMask allows you to store your earnings securely in your own Ethereum lite-wallet. " });
-                } else {
-                    this.sendResults(LISTENERS.Error, { errorId: 1, errorType: ERROR_TYPE.Error, message: "The canvas is updating every 15 seconds. Get instant updates with https://metamask.io/ ." });
-                }
-                return;
-            }
-
-            if (accs.length == 0) {
-                if (GFD.getData('advancedMode')) {
-                    this.sendResults(LISTENERS.Error, { errorId: 0, errorType: ERROR_TYPE.Error, message: "Couldn't get any accounts! Make sure you're logged into Metamask." });
-                    GFD.setData('noAccount', true);
-                }
-                return;
-            }
-
-            GFD.setData('noAccount', false);
-            this.sendResults(LISTENERS.Error, { removeErrors: [0, 1], message: '' });
-
-            this.accounts = accs;
-            if (this.account !== this.accounts[0].toLowerCase()) {
-                this.account = this.accounts[0].toLowerCase();
-                this.sendEvent(EVENTS.AccountChange, this.accounts[0]);
-            }
-        });
-    }
-
-    // setupEvents() {
-    //     this.VRE.deployed().then((instance) => {
-    //         this.events.event = instance.allEvents({fromBlock: 0, toBlock: 'latest'});
-    //         SDM.init();
-    //         this.listenForResults(LISTENERS.ServerDataManagerInit, 'contract', () => {
-    //             this.stopListeningForResults(LISTENERS.ServerDataManagerInit, 'contract');
-    //             this.events.event.watch((error, result) => {
-    //                 if (error) {
-    //                     console.info(result, error);
-    //                 } else {
-    //                     for (let i = 0; i < result.length; i++)
-    //                         this.sendEvent(result[i].event, result[i]);
-    //                 }
-    //             });
-    //         });
-    //     }).catch((c) => {
-    //         console.info(c);
-    //     });
-    // }
-
     /*
     Requests all events of event type EVENT.
     */
