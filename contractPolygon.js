@@ -14,22 +14,6 @@ const EVENTS = {
     PropertyColorUpdate: 'PropertyColorUpdate', //(uint24 indexed property, uint256[10] colors, uint256 lastUpdate, address lastUpdaterPayee);
     PropertyColorUpdatePixel: 'PropertyColorUpdatePixel', //(uint24 indexed property, uint8 row, uint24 rgb);
 
-    SetUserHoverText: 'SetUserHoverText', //(address indexed user, bytes32[2] newHoverText);
-    SetUserSetLink: 'SetUserSetLink', //(address indexed user, bytes32[2] newLink);
-
-    PropertyBought: 'PropertyBought', //(uint24 indexed property,  address newOwner);
-    PropertySetForSale: 'PropertySetForSale', //(uint24 indexed property, uint256 forSalePrice);
-    DelistProperty: 'DelistProperty', //(uint24 indexed property);
-
-    ListTradeOffer: 'ListTradeOffer', //(address indexed offerOwner, uint256 eth, uint256 pxl, bool isBuyingPxl);
-    AcceptTradeOffer: 'AcceptTradeOffer', //(address indexed accepter, address indexed offerOwner);
-    CancelTradeOffer: 'CancelTradeOffer', //(address indexed offerOwner);
-
-    SetPropertyPublic: 'SetPropertyPublic', //(uint24 indexed property);
-    SetPropertyPrivate: 'SetPropertyPrivate', //(uint24 indexed property, uint32 numHoursPrivate);
-
-    Bid: 'Bid', //(uint24 indexed property, uint256 bid);
-
     //token events    
     Transfer: 'Transfer', //(address indexed _from, address indexed _to, uint256 _value);
     Approval: 'Approval', //(address indexed _owner, address indexed _spender, uint256 _value);
@@ -86,24 +70,8 @@ class Contract {
         // VRE Dapp Events
         this.VRE.deployed().then((i) => {
             switch (event) {
-                case EVENTS.PropertyBought:
-                    return i.PropertyBought(params, filter).get(callback);
                 case EVENTS.PropertyColorUpdate:
                     return i.PropertyColorUpdate(params, filter).get(callback);
-                case EVENTS.SetUserHoverText:
-                    return i.SetUserHoverText(params, filter).get(callback);
-                case EVENTS.SetUserSetLink:
-                    return i.SetUserSetLink(params, filter).get(callback);
-                case EVENTS.PropertySetForSale:
-                    return i.PropertySetForSale(params, filter).get(callback);
-                case EVENTS.DelistProperty:
-                    return i.DelistProperty(params, filter).get(callback);
-                case EVENTS.SetPropertyPublic:
-                    return i.SetPropertyPublic(params, filter).get(callback);
-                case EVENTS.SetPropertyPrivate:
-                    return i.SetPropertyPrivate(params, filter).get(callback);
-                case EVENTS.Bid:
-                    return i.Bid(params, filter).get(callback);
             }
         }).catch((e) => {
             console.error(e);
@@ -129,15 +97,7 @@ class Contract {
         let filter = { fromBlock: 0, toBlock: 'latest' };
 
         switch (event) {
-            case EVENTS.PropertyBought:
             case EVENTS.PropertyColorUpdate:
-            case EVENTS.SetUserHoverText:
-            case EVENTS.SetUserSetLink:
-            case EVENTS.PropertySetForSale:
-            case EVENTS.DelistProperty:
-            case EVENTS.SetPropertyPublic:
-            case EVENTS.SetPropertyPrivate:
-            case EVENTS.Bid:
                 return this._watchVREEventLogs(event, callback);
             case EVENTS.Transfer:
             case EVENTS.Approval:
@@ -180,106 +140,6 @@ class Contract {
     // ----------------------------------         SETTERS         ----------------------------------------------
     // ---------------------------------------------------------------------------------------------------------
     // ---------------------------------------------------------------------------------------------------------
-
-    buyProperty(x, y, eth, ppc, callback) {
-        console.info(x, y, eth, ppc);
-        this.VRE.deployed().then((i) => {
-            if (eth == 0)
-                return i.buyPropertyInPPC(this.toID(x, y), ppc, { from: this.account });
-            else if (ppc == 0)
-                return i.buyPropertyInETH(this.toID(x, y), { value: eth, from: this.account });
-            else
-                return i.buyProperty(this.toID(x, y), ppc, { value: eth, from: this.account });
-        }).then(() => {
-            callback(true);
-            this.sendResults(LISTENERS.Alert, { result: true, message: "Property " + (x + 1) + "x" + (y + 1) + " purchase complete." });
-        }).catch((e) => {
-            callback(false);
-            console.info(e);
-            this.sendResults(LISTENERS.Alert, { result: false, message: "Unable to purchase property " + (x + 1) + "x" + (y + 1) + "." });
-        });
-    }
-
-    sellProperty(x, y, price) {
-        this.VRE.deployed().then((i) => {
-            return i.listForSale(this.toID(parseInt(x), parseInt(y)), price, { from: this.account });
-        }).then(() => {
-            this.sendResults(LISTENERS.Alert, { result: true, message: "Property " + (x + 1) + "x" + (y + 1) + " listed for sale." });
-        }).catch((e) => {
-            console.log(e);
-            this.sendResults(LISTENERS.Alert, { result: false, message: "Unable to put property " + (x + 1) + "x" + (y + 1) + " on market." });
-        });
-    }
-
-    delistProperty(x, y, callback) {
-        this.VRE.deployed().then((i) => {
-            return i.delist(this.toID(parseInt(x), parseInt(y)), { from: this.account });
-        }).then(() => {
-            callback(true);
-            this.sendResults(LISTENERS.Alert, { result: true, message: "Property " + (x + 1) + "x" + (y + 1) + " listed for sale." });
-        }).catch((e) => {
-            console.log(e);
-            callback(false);
-            this.sendResults(LISTENERS.Alert, { result: false, message: "Unable to put property " + (x + 1) + "x" + (y + 1) + " on market." });
-        });
-    }
-
-    setPropertyMode(x, y, isPrivate, minutesPrivate, callback) {
-        this.VRE.deployed().then((i) => {
-            return i.setPropertyMode(this.toID(parseInt(x), parseInt(y)), isPrivate, minutesPrivate, { from: this.account });
-        }).then((r) => {
-            return callback(r);
-        }).catch((e) => {
-            console.log(e);
-        });
-    }
-
-    //array of 2 32 bytes of string
-    setHoverText(text) {
-        this.VRE.deployed().then((i) => {
-            return i.setHoverText(Func.StringToBigInts(text), { from: this.account });
-        }).then(function() {
-            console.info("Hover text set!");
-        }).catch((e) => {
-            console.log(e);
-        });
-    }
-
-    //array of 2 32 bytes
-    setLink(text) {
-        this.VRE.deployed().then((i) => {
-            return i.setLink(Func.StringToBigInts(text), { from: this.account });
-        }).then(function() {
-            console.info("Property link updated!");
-        }).catch((e) => {
-            console.log(e);
-        });
-    }
-
-    transferProperty(x, y, newOwner, callback) {
-        this.VRE.deployed().then((i) => {
-            return i.transferProperty(this.toID(parseInt(x), parseInt(y)), newOwner, { from: this.account }).then((r) => {
-                return callback(true);
-            }).catch((e) => {
-                console.error(e);
-            });
-        }).catch((e) => {
-            return callback(false);
-        });
-    }
-
-    makeBid(x, y, bid, callback) {
-        this.VRE.deployed().then((i) => {
-            return i.makeBid(this.toID(x, y), bid, { from: this.account });
-        }).then(() => {
-            callback(true);
-            this.sendResults(LISTENERS.Alert, { result: true, message: "Bid for " + (x + 1) + "x" + (y + 1) + " sent to owner." });
-        }).catch((e) => {
-            callback(false);
-            this.sendResults(LISTENERS.Alert, { result: false, message: "Error placing bid." });
-        });
-    }
-
     setColors(x, y, data, PPT, callback) {
         this.VRE.deployed().then((i) => {
             return i.setColors(this.toID(x, y), Func.RGBArrayToContractData(data), PPT );
@@ -320,54 +180,6 @@ class Contract {
         }).catch((e) => {
             console.info(e);
             this.sendResults(LISTENERS.Error, { result: false, message: "Unable to retrieve PPC balance." });
-        });
-    }
-
-    getSystemSalePrices(callback) {
-        this.VRE.deployed().then((i) => {
-            return i.getSystemSalePrices.call().then((r) => {
-                return callback(r);
-            }).catch((e) => {
-                console.error(e);
-            });
-        }).catch((e) => {
-            console.log(e);
-        });
-    }
-
-    getForSalePrices(x, y, callback) {
-        this.VRE.deployed().then((i) => {
-            return i.getForSalePrices.call(this.toID(x, y)).then((r) => {
-                return callback(r);
-            }).catch((e) => {
-                console.error(e);
-            });
-        }).catch((e) => {
-            console.log(e);
-        });
-    }
-
-    getHoverText(address, callback) {
-        this.PXLPP.deployed().then((i) => {
-            return i.getOwnerHoverText.call(address).then((r) => {
-                return callback(Func.BigIntsToString(r));
-            }).catch((e) => {
-                console.error(e);
-            });
-        }).catch((e) => {
-            console.log(e);
-        });
-    }
-
-    getLink(address, callback) {
-        this.PXLPP.deployed().then((i) => {
-            return i.getOwnerLink.call(address).then((r) => {
-                return callback(Func.BigIntsToString(r));
-            }).catch((e) => {
-                console.error(e);
-            });
-        }).catch((e) => {
-            console.log(e);
         });
     }
 
