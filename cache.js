@@ -7,6 +7,7 @@ const shell = require('shelljs');
 let COVER_IMAGE = null;
 
 const PATHS = {
+    COMPLETE_PNG_STORAGE: { dir: "./cache/", name: "completeImage.png" },
     PNG_STORAGE: { dir: "./cache/", name: "image.png" },
     DATA_STORAGE: { dir: "./cache/", name: "properties.json" },
     PORTFOLIO_STORAGE: { dir: "./img/", name: "canvas.png" },

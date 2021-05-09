@@ -7,6 +7,7 @@ const PXLPPPath = require(path.join(__dirname, 'build/contracts/PXLProperty.json
 const Func = require('./functions.js');
 const Timer = require('./timer.js');
 const CTRDATA = require('./contracts/ContractData');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 const PROPERTIES_WIDTH = 100;
 

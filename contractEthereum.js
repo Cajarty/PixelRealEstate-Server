@@ -8,6 +8,7 @@ const Func = require('./functions.js');
 const Timer = require('./timer.js');
 const CTRDATA = require('./contracts/ContractData');
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const truffleConfig = require('./truffle-config.js');
 
 const PROPERTIES_WIDTH = 100;
 
@@ -42,11 +43,10 @@ class ContractPolygon {
         this.PXLPP = null; //Storage contract reference
 
         // Setup RPC connection   
+        
         // 52.169.42.101:30303
-        this.provider = new ethers.providers.Web3Provider(new HDWalletProvider({
-            mnemonic: 'acid invest endorse drift congress middle lonely busy paddle another brain glue', // Throwaway 0-eth dev address
-            providerOrUrl: 'https://kovan.infura.io/v3/b46c5cc8ebc7441aa2eb027f51c1950c', // API key used with that 100k daily limit
-        }));
+        this.provider = new ethers.providers.Web3Provider(truffleConfig.networks.kovan.provider());
+        //this.provider = new ethers.providers.EtherscanProvider('kovan', 'HB34KZP5JSDIRRGPC5VSQNZUWHT4SFP6YF');
 
         // Read JSON and attach RPC connection (Provider)
         // this.VRE = contract(VREPath);

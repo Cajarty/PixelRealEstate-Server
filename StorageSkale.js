@@ -1,4 +1,4 @@
-const ctrWrp = require('./contractEthereum.js');
+const ctrWrp = require('./contract.js');
 const Timer = require('./timer.js');
 const Func = require('./functions.js');
 const Cache = require('./cache.js');
@@ -9,11 +9,15 @@ const slice = require('array-slice');
 const flags = require('./flags.js');
 const { BotImages, LoadBotImages } = require('./botData.js');
 const EVENTS = require('./events.js');
+const contractManager = require('./ContractManager').contractManager;
 
 const owner0 = '0x0000000000000000000000000000000000000000';
 
-class Storage {
-    constructor() {
+class StorageSkale {
+    constructor(storageManager, chainID) {
+        this.chainID = chainID;
+        this.storageManager = storageManager;
+        
         //stored in [0...999] rows and holds arrays of length of 4000 of all pixels in that row.
         this.pixelData = {};
 
@@ -21,18 +25,6 @@ class Storage {
         this.propertyData = {};
 
         this.eventLogLength = 10; //how many events to keep in the list.
-
-        //Stored event data from all events for sorting top and recents.
-        this.eventData = {
-            topTenPayouts: [],
-            recentPayouts: [],
-            yourPayouts: [], //not used due to server limitations
-        
-            topTenPXLTrades: [],
-            topTenETHTrades: [],
-            recentTrades: [],
-            yourTrades: [], //not used due to server limitations
-        };
 
         //misc stats gathered. not used yet
         this.stats = {
@@ -143,7 +135,7 @@ class Storage {
             }
             this.loadCanvasChunk(0);
         } else {
-            Cache.UncacheImage(Cache.PATHS.PNG_STORAGE, (err, data) => {
+            Cache.UncacheImage(Cache.PATHS.COMPLETE_PNG_STORAGE, (err, data) => {
                 if (data != null) {
                     this.png = data;
                     for (let y = 0; y < 1000; y++) {
@@ -157,10 +149,9 @@ class Storage {
                         for (let i = 0; i < 4000; i++)
                             this.pixelData[y].push(fakeData[i % 4]);
                     }
-                    Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
                 }
                 console.info('Requesting updates...');
-                if (!this.disableCanvasReload)
+                if (!this.disableCanvasReload || data == null)
                     this.loadCanvasChunk(0);
                 else
                     this.loadData();
@@ -169,9 +160,13 @@ class Storage {
     }
 
     loadCanvasChunk(x) {
-        for (let y = 0; y < 100; y++) {
-            ctrWrp.instance.getPropertyColors(x, y, this.insertPixelRow);
-        }
+        let y = 0;
+        this.chunkLoadInterval = setInterval(() => {
+            contractManager.getContract(this.chainID).getPropertyColors(x, y, this.insertPixelRow);
+            if (++y >= 100) {
+                clearInterval(this.chunkLoadInterval);
+            }
+        }, 100);
     }
 
     insertPixelRow(x, y, data) {
@@ -197,7 +192,8 @@ class Storage {
                 this.loadCanvas();
             }
         console.info('Loading complete! Cacheing image to file for quick reload.');
-        Cache.CacheImage(Cache.PATHS.PNG_STORAGE, this.pixelData, () => {});
+        console.info(this.storageManager);
+        this.storageManager.cacheImage();
         this.loadData();
         this.loadingComplete = true;
     }
@@ -209,7 +205,7 @@ class Storage {
         if (row > 99 || row < 0)
             return;
         for (let x = 0; x < 100; x++)
-            ctrWrp.instance.getPropertyData(x, row, this.storePropertyData);
+            contractManager.getContract(this.chainID).getPropertyData(x, row, this.storePropertyData);
     }
 
     /*
@@ -229,9 +225,19 @@ class Storage {
             isInPrivate: data[4],
             reserved: Func.BigNumberToNumber(data[5]),
         };
+
         if (this.propertyData[x] == null)
             this.propertyData[x] = {};
         this.propertyData[x][y] = obj;
+
+        if (this.storageManager.propertyData[x] == null)
+            this.storageManager.propertyData[x] = {};
+        if (this.storageManager.propertyData[x][y] == null) {
+            this.storageManager.propertyData[x][y] = obj;
+        } else if (this.storageManager.propertyData[x][y].lastUpdate + this.storageManager.propertyData[x][y].lastUpdate < obj.lastUpdate) {
+            this.storageManager.propertyData[x][y] = obj;
+        }
+
         this.propertyLoadValue++;
         if (this.propertyLoadValue >= (y + 1) * 100) {
             console.info('Loading property data: ' + (this.propertyLoadValue / 100) + '%');
@@ -246,50 +252,6 @@ class Storage {
         }
     }
 
-    setupCacheLoop() {
-        if (this.cacheImageTimer != null || !this.cacheImage)
-            return;
-        this.cacheImageTimer = setInterval(() => {
-            let string = '';
-            string += ("Now cacheing image.");
-            this.pauseBot = true;
-            let temp = this.pixelData;
-            Cache.CacheImage(Cache.PATHS.PNG_STORAGE, temp, (result) => {
-                string += ("Image Cached! " + (new Date()).toString());
-            });
-            if (this.cacheBackup++ >= 100) {
-                Cache.CacheImage({dir: Cache.PATHS.PNG_STORAGE.dir, name: 'image_backup_' + new Date().getTime() + '.png'}, temp, (result) => {
-                    string += ("Image Backed Up! " + (new Date()).toString());
-                });
-                this.cacheBackup = 0;
-            }
-            Cache.CacheFile(Cache.PATHS.DATA_STORAGE, this.propertyData, (result) => {
-                string += ("Properties Cached! " + (new Date()).toString());
-            });
-            Cache.CacheImage(flags.ENV_DEV ? Cache.PATHS.CANVAS_STORAGE_DEV : Cache.PATHS.CANVAS_STORAGE, temp, (result) => {
-                this.pauseBot = false;
-                string += ("Canvas Cached! " + (new Date()).toString());
-            });
-            Cache.CacheFile(flags.ENV_DEV ? Cache.PATHS.CANVAS_DATA_STORAGE_DEV : Cache.PATHS.CANVAS_DATA_STORAGE, this.propertyData, (result) => {
-                this.pauseBot = false;
-                string += ("Canvas Data Cached! " + (new Date()).toString());
-            });
-
-            if (!flags.ENV_DEV) {
-                Cache.CacheImage(Cache.PATHS.PORTFOLIO_STORAGE, temp, (result) => {
-                    this.pauseBot = false;
-                    string += ("Portfolio Cached! " + (new Date()).toString());
-                });
-            }
-            console.info(string);
-        }, 15000);
-    }
-
-    stopCacheLoop() {
-        clearInterval(this.cacheImageTimer);
-        console.info("No longer cacheing image!");
-    }
-
     getImageData() {
         if (this.loadingComplete)
             return this.pixelDataHex;
@@ -300,10 +262,6 @@ class Storage {
         if (this.propertyLoadValue >= 10000)
             return this.propertyData;
         return 'Server is loading data, please wait. (' + (this.propertyLoadValue / 100) + '%)';
-    }
-
-    getEventData() {
-        return this.eventData;
     }
 
     /*
@@ -334,10 +292,12 @@ class Storage {
                 this.pixelData[y][x * 4 + 3] = 255;
             }
         }
+
+        this.storageManager.insertPropertyImage(xx, yy, RGBArray);
     }
 
     forceUpdatePropertyData(x, y) {
-        ctrWrp.instance.getPropertyData(x, y, (x, y, data) => {
+        contractManager.getContract(this.chainID).getPropertyData(x, y, (x, y, data) => {
             let ethp = Func.BigNumberToNumber(data[1]);
             let ppcp = Func.BigNumberToNumber(data[2]);
             let update = {
@@ -367,11 +327,19 @@ class Storage {
         if (this.propertyData[x] == null)
             this.propertyData[x] = {};
         this.propertyData[x][y] = property;
+
+        if (this.storageManager.propertyData[x] == null)
+            this.storageManager.propertyData[x] = {};
+        if (this.storageManager.propertyData[x][y] == null) {
+            this.storageManager.propertyData[x][y] = property;
+        } else if (this.storageManager.propertyData[x][y].lastUpdate + this.storageManager.propertyData[x][y].lastUpdate < property.lastUpdate) {
+            this.storageManager.propertyData[x][y] = property;
+        }
     }
 
     listenForEvents() {
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertyColorUpdate, {}, (property, colors, lastUpdate, lastUpdaterPayee, becomePublic, awardedAmount, event) => {
-            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+        contractManager.getContract(this.chainID).watchEventLogs(EVENTS.PropertyColorUpdate, {}, (property, colors, lastUpdate, lastUpdaterPayee, becomePublic, awardedAmount, event) => {
+            let id = contractManager.getContract(this.chainID).fromID(Func.BigNumberToNumber(property));
             colors = Func.ContractDataToRGBAArray(colors);
             this.forceUpdatePropertyData(id.x, id.y);
             this.insertPropertyImage(id.x, id.y, colors);
@@ -388,28 +356,28 @@ class Storage {
                 maxPayout: maxEarnings,
                 transaction: event.transactionHash,
             };
-            this.eventData.recentPayouts.unshift(newData);
-            if (this.eventData.recentPayouts.length > this.eventLogLength)
-                this.eventData.recentPayouts.pop();
+            this.storageManager.eventData.recentPayouts.unshift(newData);
+            if (this.storageManager.eventData.recentPayouts.length > this.eventLogLength)
+                this.storageManager.eventData.recentPayouts.pop();
 
-            if (this.eventData.topTenPayouts.length == 0) {
-                this.eventData.topTenPayouts.unshift(newData);
+            if (this.storageManager.eventData.topTenPayouts.length == 0) {
+                this.storageManager.eventData.topTenPayouts.unshift(newData);
             } else {
-                for (let i = Math.min(this.eventData.topTenPayouts.length, this.eventLogLength) - 1; i >= 0; i--) {
-                    if (payout <= this.eventData.topTenPayouts[i].payout || (i == 0 && payout > this.eventData.topTenPayouts[i].payout)) {
-                        if (payout <= this.eventData.topTenPayouts[i].payout)
-                            this.eventData.topTenPayouts.splice(i + 1, 0, newData);
+                for (let i = Math.min(this.storageManager.eventData.topTenPayouts.length, this.eventLogLength) - 1; i >= 0; i--) {
+                    if (payout <= this.storageManager.eventData.topTenPayouts[i].payout || (i == 0 && payout > this.eventData.topTenPayouts[i].payout)) {
+                        if (payout <= this.storageManager.eventData.topTenPayouts[i].payout)
+                            this.storageManager.eventData.topTenPayouts.splice(i + 1, 0, newData);
                         else
-                            this.eventData.topTenPayouts.splice(i, 0, newData);
-                        this.eventData.topTenPayouts.splice(this.eventLogLength);
+                            this.storageManager.eventData.topTenPayouts.splice(i, 0, newData);
+                        this.storageManager.eventData.topTenPayouts.splice(this.eventLogLength);
                         break;
                     }
                 }
             }
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertyBought, {}, (property, newOwner, ethAmount, PXLAmount, timestamp, oldOwner, event) => {
-            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+        contractManager.getContract(this.chainID).watchEventLogs(EVENTS.PropertyBought, {}, (property, newOwner, ethAmount, PXLAmount, timestamp, oldOwner, event) => {
+            let id = contractManager.getContract(this.chainID).fromID(Func.BigNumberToNumber(property));
             this.updatePropertyData(id.x, id.y, { owner: newOwner, isForSale: false });
 
 
@@ -426,21 +394,21 @@ class Storage {
                 timeSold: timeSold * 1000,
                 transaction: event.transactionHash,
             };
-            this.eventData.recentTrades.unshift(newData);
-            if (this.eventData.recentTrades.length > this.eventLogLength)
-                this.eventData.recentTrades.pop();
+            this.storageManager.eventData.recentTrades.unshift(newData);
+            if (this.storageManager.eventData.recentTrades.length > this.eventLogLength)
+                this.storageManager.eventData.recentTrades.pop();
 
             if (ETHPrice != 0) {
-                if (this.eventData.topTenETHTrades.length == 0) {
-                    this.eventData.topTenETHTrades.unshift(newData);
+                if (this.storageManager.eventData.topTenETHTrades.length == 0) {
+                    this.storageManager.eventData.topTenETHTrades.unshift(newData);
                 } else {
-                    for (let i = Math.min(this.eventData.topTenETHTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
-                        if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice || (i == 0 && ETHPrice > this.eventData.topTenETHTrades[i].ETHPrice)) {
-                            if (ETHPrice <= this.eventData.topTenETHTrades[i].ETHPrice)
-                                this.eventData.topTenETHTrades.splice(i + 1, 0, newData);
+                    for (let i = Math.min(this.storageManager.eventData.topTenETHTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
+                        if (ETHPrice <= this.storageManager.eventData.topTenETHTrades[i].ETHPrice || (i == 0 && ETHPrice > this.storageManager.eventData.topTenETHTrades[i].ETHPrice)) {
+                            if (ETHPrice <= this.storageManager.eventData.topTenETHTrades[i].ETHPrice)
+                                this.storageManager.eventData.topTenETHTrades.splice(i + 1, 0, newData);
                             else
-                                this.eventData.topTenETHTrades.splice(i, 0, newData);
-                            this.eventData.topTenETHTrades.splice(this.eventLogLength);
+                                this.storageManager.eventData.topTenETHTrades.splice(i, 0, newData);
+                            this.storageManager.eventData.topTenETHTrades.splice(this.eventLogLength);
                             return;
                         }
                     }
@@ -448,16 +416,16 @@ class Storage {
             }
 
             if (PXLPrice != 0) {
-                if (this.eventData.topTenPXLTrades.length == 0) {
-                    this.eventData.topTenPXLTrades.unshift(newData);
+                if (this.storageManager.eventData.topTenPXLTrades.length == 0) {
+                    this.storageManager.eventData.topTenPXLTrades.unshift(newData);
                 } else {
-                    for (let i = Math.min(this.eventData.topTenPXLTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
-                        if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice || (i == 0 && PXLPrice > this.eventData.topTenPXLTrades[i].PXLPrice)) {
-                            if (PXLPrice <= this.eventData.topTenPXLTrades[i].PXLPrice)
-                                this.eventData.topTenPXLTrades.splice(i + 1, 0, newData);
+                    for (let i = Math.min(this.storageManager.eventData.topTenPXLTrades.length, this.eventLogLength) - 1; i >= 0; i--) {
+                        if (PXLPrice <= this.storageManager.eventData.topTenPXLTrades[i].PXLPrice || (i == 0 && PXLPrice > this.storageManager.eventData.topTenPXLTrades[i].PXLPrice)) {
+                            if (PXLPrice <= this.storageManager.eventData.topTenPXLTrades[i].PXLPrice)
+                                this.storageManager.eventData.topTenPXLTrades.splice(i + 1, 0, newData);
                             else
-                                this.eventData.topTenPXLTrades.splice(i, 0, newData);
-                            this.eventData.topTenPXLTrades.splice(this.eventLogLength);
+                                this.storageManager.eventData.topTenPXLTrades.splice(i, 0, newData);
+                            this.storageManager.eventData.topTenPXLTrades.splice(this.eventLogLength);
                             return;
                         }
                     }
@@ -465,28 +433,28 @@ class Storage {
             }
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.PropertySetForSale, {}, (property, forSalePrice) => {
-            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+        contractManager.getContract(this.chainID).watchEventLogs(EVENTS.PropertySetForSale, {}, (property, forSalePrice) => {
+            let id = contractManager.getContract(this.chainID).fromID(Func.BigNumberToNumber(property));
             this.updatePropertyData(id.x, id.y, {isForSale: true, PPCPrice: Func.BigNumberToNumber(forSalePrice)});
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.DelistProperty, {}, (property) => {
-                let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+        contractManager.getContract(this.chainID).watchEventLogs(EVENTS.DelistProperty, {}, (property) => {
+                let id = contractManager.getContract(this.chainID).fromID(Func.BigNumberToNumber(property));
                 this.updatePropertyData(id.x, id.y, { isForSale: false, PPCPrice: 0 });
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPublic, {}, (property) => {
-            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+        contractManager.getContract(this.chainID).watchEventLogs(EVENTS.SetPropertyPublic, {}, (property) => {
+            let id = contractManager.getContract(this.chainID).fromID(Func.BigNumberToNumber(property));
             this.updatePropertyData(id.x, id.y, {isInPrivate: false, becomePublic: 0});
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.SetPropertyPrivate, {}, (property, numHoursPrivate) => {
-            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+        contractManager.getContract(this.chainID).watchEventLogs(EVENTS.SetPropertyPrivate, {}, (property, numHoursPrivate) => {
+            let id = contractManager.getContract(this.chainID).fromID(Func.BigNumberToNumber(property));
             this.updatePropertyData(id.x, id.y, {isInPrivate: true, becomePublic: Func.BigNumberToNumber(numHoursPrivate)});
         });
 
-        ctrWrp.instance.watchEventLogs(EVENTS.Bid, {}, (property, bid, timestamp) => {
-            let id = ctrWrp.instance.fromID(Func.BigNumberToNumber(property));
+        contractManager.getContract(this.chainID).watchEventLogs(EVENTS.Bid, {}, (property, bid, timestamp) => {
+            let id = contractManager.getContract(this.chainID).fromID(Func.BigNumberToNumber(property));
             bid = Func.BigNumberToNumber(bid);
             timestamp = Func.BigNumberToNumber(timestamp);
             let x = id.x,
@@ -515,39 +483,6 @@ class Storage {
         }
         this.propertyData[x][y] = Object.assign({}, this.propertyData[x][y] || {}, update);
     }
-
-    simplifyData(data) {
-        let array = [];
-        for (let i = 0; i < Object.keys(data).length; i++) {
-            for (let j = 0; j < data[i].length; j++) {
-                array.push(data[i][j]);
-            }
-        }
-        return array;
-    }
-
-    buildImage(data) {
-        new PNG({
-            filterType: 4,
-            width: 1000,
-            height: 1000,
-        }).on('parsed', function() {
-            for (let i = 0; i < Object.keys(data).length; i++) {
-                for (let j = 0; j < data[i].length; j++) {
-                    this.data[i * data[i].length + j] = data[i][j];
-                }
-            }
-            this.png = this.pack();
-            return this.png;
-        });
-    }
-
-    getImage() {
-        if (this.loadingComplete)
-            return this.png;
-        else
-            return Response.IMAGE_NOT_LOADED(this.loadValue / 100);
-    }
 }
 
-module.exports.instance = new Storage();
+module.exports.StorageSkale = StorageSkale;

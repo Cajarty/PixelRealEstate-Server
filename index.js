@@ -2,7 +2,7 @@
 // Include it and extract some methods for convenience
 const contract = require("truffle-contract");
 const CtrWrp = require('./contract.js');
-const Storage = require('./storage.js');
+const storageManager = require('./StorageManager.js').storageManager;
 const Timer = require('./timer.js');
 const fs = require('fs');
 const cors = require('cors');
@@ -45,15 +45,15 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.get('/getCanvas', (req, res) => {
-    res.send(Storage.instance.getImageData());
+    //res.send(storageManager.getImageData());
     res.end();
 });
 app.get('/getImage.png', (req, res) => {
-    if (!Storage.instance.loadingComplete) {
+    if (!storageManager.loadingComplete()) {
         res.status(190).end();
     } else {
         res.writeHead(200, { 'Content-Type': 'image/png' });
-        let img = fs.readFileSync('./cache/image.png');
+        let img = fs.readFileSync('./cache/completeImage.png');
         res.end(img, 'binary');
     }
 });
@@ -66,15 +66,15 @@ app.get('/getIP', (req, res) => {
     res.end();
 });
 app.get('/getPixelData', (req, res) => {
-    res.send(Storage.instance.pixelData);
+    //res.send(storageManager.getPixelData());
     res.end();
 });
 app.get('/getPropertyData', (req, res) => {
-    res.send(Storage.instance.getPropertyData());
+    res.send(storageManager.getPropertyData());
     res.end();
 });
 app.get('/getEventData', (req, res) => {
-    res.send(Storage.instance.getEventData());
+    res.send(storageManager.getEventData());
     res.end();
 });
 app.post('/setColors', (req, res) => {
@@ -97,8 +97,8 @@ app.post('/setColors', (req, res) => {
         res.end();
     }
 
-    if (Storage.instance.canSimpleUpdatePropertyImage(x, y)) {
-        Storage.instance.insertPropertyImage(x, y, data);
+    if (storageManager.canSimpleUpdatePropertyImage(x, y)) {
+        storageManager.insertPropertyImage(x, y, data);
         res.send(true);
         res.end();
     } else {
@@ -110,4 +110,4 @@ var server = https.createServer(options, app).listen(PORT, function() {
     console.log("Running on port: ", PORT);
 });
 
-Storage.instance.loadCanvas();
+storageManager.loadCanvas();
