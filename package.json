@@ -35,7 +35,7 @@
         "path": "^0.12.7",
         "pngjs": "^3.3.2",
         "server": "^1.0.18",
-        "shelljs": "^0.8.1",
+        "shelljs": "^0.8.5",
         "truffle-contract": "^3.0.4"
     }
 }
